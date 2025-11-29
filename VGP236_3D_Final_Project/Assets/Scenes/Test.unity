@@ -19567,11 +19567,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3745956202669600401, guid: 67e6285799aea2c4cbfb353cfe5bafe8, type: 3}
       propertyPath: _moveSpeed
-      value: 9
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3745956202669600401, guid: 67e6285799aea2c4cbfb353cfe5bafe8, type: 3}
       propertyPath: _slideSpeed
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3745956202669600401, guid: 67e6285799aea2c4cbfb353cfe5bafe8, type: 3}
       propertyPath: _acceleration

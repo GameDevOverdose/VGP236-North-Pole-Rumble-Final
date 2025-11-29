@@ -96,6 +96,7 @@ public class Test_PlayerController : MonoBehaviour
         Vector3 currentHorizontalVelocity = new Vector3(currentVelocity.x, 0.0f, currentVelocity.z);
 
         float accelerationRate = 0.0f;
+
         if (Mathf.Abs(moveInput.y) > 0.1f || _isSliding)
         {
             accelerationRate = _acceleration;
@@ -104,6 +105,12 @@ public class Test_PlayerController : MonoBehaviour
         {
             accelerationRate = _deceleration;
             targetHorinzontalVelocity = Vector3.zero;
+        }
+
+        if (moveInput.y < 0.0f) // If the player is moving backwards
+        {
+            accelerationRate *= 0.5f;
+            targetHorinzontalVelocity = forward * (targetSpeed * 0.65f);
         }
 
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorinzontalVelocity, accelerationRate * Time.deltaTime);
@@ -121,14 +128,32 @@ public class Test_PlayerController : MonoBehaviour
 
     private void Slide()
     {
-        Vector3 forward = _rigidBody.transform.forward;
-        forward.y = 0.0f;
-        forward.Normalize();
+        // Placeholder for possible option for slide if its wanted to be instantaneous speed boost
+        //if (_isSliding)
+        //{
+        //    currentVelocity.x = targetHorinzontalVelocity.x;
+        //    currentVelocity.z = targetHorinzontalVelocity.z;
+        //    _rigidBody.linearVelocity = currentVelocity;
+        //}
+        //else
+        //{
+        //    if (Mathf.Abs(moveInput.y) > 0.1f || _isSliding)
+        //    {
+        //        accelerationRate = _acceleration;
+        //    }
+        //    else
+        //    {
+        //        accelerationRate = _deceleration;
+        //        targetHorinzontalVelocity = Vector3.zero;
+        //    }
 
-        float fowardAmount = 1 * _moveSpeed;
-        Vector3 moveVelo = forward * fowardAmount;
-        moveVelo.y = _rigidBody.linearVelocity.y;
-        _rigidBody.linearVelocity = moveVelo;
+        //    currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorinzontalVelocity, accelerationRate * Time.deltaTime);
+
+        //    // Can't overwrite y, to allow gravity to still work
+        //    currentVelocity.x = currentHorizontalVelocity.x;
+        //    currentVelocity.z = currentHorizontalVelocity.z;
+        //    _rigidBody.linearVelocity = currentVelocity;
+        //}
     }
 
     private void SlideAction(InputAction.CallbackContext context)
