@@ -11,7 +11,6 @@ public class Test_PlayerController : MonoBehaviour
     private InputAction _moveAction = null;
     private InputAction _slideAction = null;
 
-
     [SerializeField] private float _acceleration = 0.0f;
     [SerializeField] private float _deceleration = 0.0f;
     [SerializeField] private float _moveSpeed = 0.0f;
