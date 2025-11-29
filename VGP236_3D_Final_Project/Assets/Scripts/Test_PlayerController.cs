@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +20,8 @@ public class Test_PlayerController : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 0.0f;
     [SerializeField] private float _slideTimer = 0.0f;
     [SerializeField] private bool _isSliding = false;
+
+    [SerializeField] private TMP_Text _velocityDebugText = null;
 
     private void Awake()
     {
@@ -104,12 +106,14 @@ public class Test_PlayerController : MonoBehaviour
             targetHorinzontalVelocity = Vector3.zero;
         }
 
-        currentHorizontalVelocity = Vector3.MoveTowards(currentHorizontalVelocity, targetHorinzontalVelocity, accelerationRate * Time.deltaTime);
+        currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorinzontalVelocity, accelerationRate * Time.deltaTime);
 
         // Can't overwrite y, to allow gravity to still work
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
+
+        _velocityDebugText.text = ($"Velocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
 
         float rotation = moveInput.x * _rotationSpeed;
         _rigidBody.angularVelocity = new Vector3(0.0f, rotation, 0.0f);
