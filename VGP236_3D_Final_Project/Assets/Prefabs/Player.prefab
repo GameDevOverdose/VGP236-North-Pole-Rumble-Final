@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da77ccecb38a11846a4d9740814b6ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  attackRate: 1
 --- !u!1 &275526683010936809
 GameObject:
   m_ObjectHideFlags: 0
@@ -7741,7 +7742,6 @@ GameObject:
   - component: {fileID: 4978754740450001818}
   - component: {fileID: 1510715784677508413}
   - component: {fileID: 279947329186471209}
-  - component: {fileID: 8318677435234799670}
   - component: {fileID: 8791155056546326562}
   - component: {fileID: 916120486820680106}
   - component: {fileID: 6080405253003525559}
@@ -7821,18 +7821,6 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.3, z: 0}
---- !u!114 &8318677435234799670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7896268985449660786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b4285840a79a04491bf819f4c40847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &8791155056546326562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7842,19 +7830,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7896268985449660786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 144e6a41ea0b84942852d831a1204e58, type: 3}
+  m_Script: {fileID: 11500000, guid: ac0f500c22316414c9a445044bef113b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test_PlayerController
   _rigidBody: {fileID: 1510715784677508413}
   _modelTransform: {fileID: 3133697882373033835}
-  _acceleration: 4
+  _acceleration: 6
   _deceleration: 2
-  _moveSpeed: 5
-  _slideSpeed: 8
-  _rotationSpeed: 5
+  _moveSpeed: 7.5
+  _slideSpeed: 9
+  _rotationSpeed: 4
   _slideTimer: 0
   _isSliding: 0
-  _disableMoveBackwards: 1
+  _disableMoveBackwards: 0
   _velocityDebugText: {fileID: 0}
 --- !u!114 &916120486820680106
 MonoBehaviour:
@@ -7871,6 +7859,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1385048208655038758, guid: bdc2f10d2a14f384fa2b78b60cea8999, type: 3}
   spawnTransform: {fileID: 4856345461697171704}
   throwForce: 10
+  throwRate: 1
 --- !u!114 &6080405253003525559
 MonoBehaviour:
   m_ObjectHideFlags: 0
