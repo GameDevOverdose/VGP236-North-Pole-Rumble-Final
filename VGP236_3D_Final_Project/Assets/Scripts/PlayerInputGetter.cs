@@ -4,61 +4,61 @@ using UnityEngine.InputSystem;
 [DefaultExecutionOrder(-20)]
 public class PlayerInputGetter : MonoBehaviour
 {
-    private static PlayerInputGetter instance = null;
-    public static PlayerInputGetter Instance { get { return instance; } }
+    private static PlayerInputGetter _instance = null;
+    public static PlayerInputGetter Instance { get { return _instance; } }
 
-    private PlayerInput playerInput = null;
+    private PlayerInput _playerInput = null;
 
-    private InputAction moveAction = null;
-    private InputAction slideAction = null;
-    private InputAction throwAction = null;
-    private InputAction meleeAttack = null;
-    private InputAction GrowSnowball = null;
+    private InputAction _moveAction = null;
+    private InputAction _slideAction = null;
+    private InputAction _throwAction = null;
+    private InputAction _meleeAttack = null;
+    private InputAction _growSnowball = null;
 
     //GETTERS
-    public InputAction MoveAction { get { return moveAction; } }
-    public InputAction SlideAction { get { return slideAction; } }
-    public InputAction ThrowAction { get { return throwAction; } }
-    public InputAction MeleeAttack { get { return meleeAttack; } }
-    public InputAction GrowSnowballAction { get { return GrowSnowball; } }
+    public InputAction MoveAction { get { return _moveAction; } }
+    public InputAction SlideAction { get { return _slideAction; } }
+    public InputAction ThrowAction { get { return _throwAction; } }
+    public InputAction MeleeAttack { get { return _meleeAttack; } }
+    public InputAction GrowSnowballAction { get { return _growSnowball; } }
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
 
-        playerInput = new PlayerInput();
+        _playerInput = new PlayerInput();
 
-        moveAction = playerInput.Player.Move;
-        slideAction = playerInput.Player.Slide;
-        throwAction = playerInput.Player.Throw;
-        meleeAttack = playerInput.Player.Attack;
-        GrowSnowball = playerInput.Player.GrowSnowball;
+        _moveAction = _playerInput.Player.Move;
+        _slideAction = _playerInput.Player.Slide;
+        _throwAction = _playerInput.Player.Throw;
+        _meleeAttack = _playerInput.Player.Attack;
+        _growSnowball = _playerInput.Player.GrowSnowball;
     }
 
     private void OnEnable()
     {
-        playerInput.Enable();
-        moveAction.Enable();
-        slideAction.Enable();
-        throwAction.Enable();
-        meleeAttack.Enable();
-        GrowSnowball.Enable();
+        _playerInput.Enable();
+        _moveAction.Enable();
+        _slideAction.Enable();
+        _throwAction.Enable();
+        _meleeAttack.Enable();
+        _growSnowball.Enable();
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
-        moveAction.Disable();
-        slideAction.Disable();
-        throwAction.Disable();
-        meleeAttack.Disable();
-        GrowSnowball.Disable();
+        _playerInput.Disable();
+        _moveAction.Disable();
+        _slideAction.Disable();
+        _throwAction.Disable();
+        _meleeAttack.Disable();
+        _growSnowball.Disable();
     }
 }
