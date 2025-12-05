@@ -3,50 +3,50 @@ using UnityEngine.InputSystem;
 
 public class ProjectileThrow : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab = null;
-    [SerializeField] private Transform spawnTransform = null;
-    [SerializeField] private float throwForce = 10.0f;
-    [SerializeField] private float throwRate = 1.0f;
-    private float throwTimer = 0.0f;
+    [SerializeField] private GameObject _projectilePrefab = null;
+    [SerializeField] private Transform _spawnTransform = null;
+    [SerializeField] private float _throwForce = 10.0f;
+    [SerializeField] private float _throwRate = 1.0f;
+    private float _throwTimer = 0.0f;
 
-    private PlayerController playerController = null;
+    private PlayerController _playerController = null;
 
-    private bool canThrow = true;
+    private bool _canThrow = true;
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        _playerController = GetComponent<PlayerController>();
 
         PlayerInputGetter.Instance.ThrowAction.performed += Throw;
 
-        throwTimer = throwRate;
+        _throwTimer = _throwRate;
     }
 
     private void Update()
     {
-        if(throwTimer < throwRate)
+        if(_throwTimer < _throwRate)
         {
-            throwTimer += Time.deltaTime;
+            _throwTimer += Time.deltaTime;
         }
     }
 
     private void Throw(InputAction.CallbackContext context)
     {
-        if(!playerController.IsSliding && canThrow && throwTimer >= throwRate)
+        if(!_playerController.IsSliding && _canThrow && _throwTimer >= _throwRate)
         {
-            throwTimer = 0.0f;
+            _throwTimer = 0.0f;
 
-            GameObject instantiatedProjectile = Instantiate(projectilePrefab, spawnTransform.position, spawnTransform.rotation);
+            GameObject instantiatedProjectile = Instantiate(_projectilePrefab, _spawnTransform.position, _spawnTransform.rotation);
 
             if (instantiatedProjectile.TryGetComponent<Rigidbody>(out Rigidbody projectileRigidbody))
             {
-                projectileRigidbody.AddForce(spawnTransform.forward * throwForce, ForceMode.VelocityChange);
+                projectileRigidbody.AddForce(_spawnTransform.forward * _throwForce, ForceMode.VelocityChange);
             }
         }
     }
 
     public void SetCanThrow(bool value)
     {
-        canThrow = value;
+        _canThrow = value;
     }
 }

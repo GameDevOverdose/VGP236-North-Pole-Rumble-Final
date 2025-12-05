@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6163218923643836956}
   - component: {fileID: 4681024719370760643}
-  m_Layer: 0
-  m_Name: Growing Snowball
+  - component: {fileID: -7299959911342721424}
+  m_Layer: 8
+  m_Name: Rolling Snowball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,6 +55,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-7299959911342721424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4260517361953932431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ea1fa0a9c26d74eaef5d30bdf30e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GiveThrowbackOnImpact
+  _hitThrowbackForce: 10
+  _hitThrowbackIncrement: 1
 --- !u!1 &5350702335371043138
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +80,7 @@ GameObject:
   - component: {fileID: 5519617227411049062}
   - component: {fileID: 138181223022175385}
   - component: {fileID: 1779111498927337585}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Art
   m_TagString: Projectile
   m_Icon: {fileID: 0}
