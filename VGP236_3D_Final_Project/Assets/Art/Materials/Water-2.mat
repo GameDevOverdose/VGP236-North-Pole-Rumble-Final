@@ -136,7 +136,7 @@ Material:
     - _SurfaceFoamDirection: 0.05
     - _SurfaceFoamDistorsion: 0
     - _SurfaceFoamSpeed: 0.01
-    - _SurfaceFoamTiling: -0.05
+    - _SurfaceFoamTiling: 0.2
     - _TileSize: 200
     - _WORLD_SPACE_UV: 1
     - _WaterAlpha: 1
