@@ -7,9 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody = null;
     [SerializeField] private Transform _modelTransform = null;
-    private PlayerInput _playerInput = null;
-    private InputAction _moveAction = null;
-    private InputAction _slideAction = null;
 
     [SerializeField] private float _acceleration = 0.0f;
     [SerializeField] private float _deceleration = 0.0f;
@@ -19,7 +16,8 @@ public class PlayerController : MonoBehaviour
     private float _currentDirection = 0.0f;
     private float _lastKnownDirection = 0.0f;
     [SerializeField] private float _rotationSpeed = 0.0f;
-    [SerializeField] private float _slideTimer = 0.0f;
+    private float _baseRotationSpeed = 0.0f;
+    private float _slideTimer = 0.0f;
     [SerializeField] private bool _isSliding = false;
     [SerializeField] private bool _disableMoveBackwards = false;
 
@@ -47,29 +45,18 @@ public class PlayerController : MonoBehaviour
 
         Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
 
-        _playerInput = new PlayerInput();
-        _moveAction = _playerInput.Player.Move;
-        _slideAction = _playerInput.Player.Slide;
-
         _baseMoveSpeed = _moveSpeed;
+        _baseRotationSpeed = _rotationSpeed;
     }
 
     private void OnEnable()
     {
-        _playerInput.Enable();
-        _moveAction.Enable();
-        _slideAction.Enable();
-
-        _slideAction.performed += SlideAction;
+        PlayerInputGetter.Instance.SlideAction.performed += SlideAction;
     }
 
     private void OnDisable()
     {
-        _playerInput.Disable();
-        _moveAction.Disable();
-        _slideAction.Disable();
-
-        _slideAction.performed -= SlideAction;
+        PlayerInputGetter.Instance.SlideAction.performed -= SlideAction;
     }
 
     private void Update()
@@ -91,13 +78,13 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction.ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;
         forward.Normalize();
 
-        if (Mathf.Abs(moveInput.y) > 0.1f)
+        if (IsMoving(moveInput))
         {
             _currentDirection = _isSliding ? 1 : moveInput.y;
             _lastKnownDirection = _currentDirection;
@@ -111,10 +98,11 @@ public class PlayerController : MonoBehaviour
 
         float accelerationRate = 0.0f;
 
-        _debugText2.text = "Moving Forward: " + (Mathf.Abs(moveInput.y) > 0.1f || _isSliding);
-        if (Mathf.Abs(moveInput.y) > 0.1f || _isSliding) // Moving Forward
+
+        if (IsMoving(moveInput) || _isSliding)
         {
             accelerationRate = _acceleration;
+
             // If the player is moving backwards
             if (moveInput.y < 0.0f)
             {
@@ -130,30 +118,31 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        else // Not Moving
-        {
-            //currentHorizontalVelocity = targetHorizontalVelocity;
-        }
-        currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
 
-        _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
-        _debugText4.text = "TargetHorizontalVelocity: " + targetHorizontalVelocity;
+        currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
 
         // Can't overwrite y, to allow gravity to still work
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
 
+        _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
+        _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
+        _debugText4.text = "TargetHorizontalVelocity: " + targetHorizontalVelocity;
         _velocityDebugText.text = ($"Velocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
-        //_velocityDebugText.text = ($"TargetHorizontalVelocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
 
         float rotation = moveInput.x * _rotationSpeed;
         _rigidBody.angularVelocity = new Vector3(0.0f, rotation, 0.0f);
     }
 
+    private bool IsMoving(Vector2 moveInput)
+    {
+        return Mathf.Abs(moveInput.y) > 0.1f;
+    }
+
     private void Move4()
     {
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction.ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;
