@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static PlayerNumberAssigner;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText3 = null;
     [SerializeField] private TMP_Text _debugText4 = null;
 
+    private int playerNumber = 0;
     [SerializeField] private int _playerId = 0;
     [SerializeField] private int _maxHealth = 3;
 
@@ -64,16 +66,18 @@ public class PlayerController : MonoBehaviour
         _currentHealth = _maxHealth;
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
+
+        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
     }
 
     private void OnEnable()
     {
-        PlayerInputGetter.Instance.SlideAction.performed += SlideAction;
+        PlayerInputGetter.Instance.SlideAction(playerNumber).performed += SlideAction;
     }
 
     private void OnDisable()
     {
-        PlayerInputGetter.Instance.SlideAction.performed -= SlideAction;
+        PlayerInputGetter.Instance.SlideAction(playerNumber).performed -= SlideAction;
     }
 
     private void Update()
@@ -95,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction.ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction(playerNumber).ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;
@@ -158,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move4()
     {
-        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction.ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction(playerNumber).ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;

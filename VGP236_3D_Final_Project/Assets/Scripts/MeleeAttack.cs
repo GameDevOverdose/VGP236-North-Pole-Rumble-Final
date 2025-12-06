@@ -15,9 +15,12 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private float _knockbackForce = 10.0f;
     [SerializeField] private float _knockbackIncrement = 0.25f;
 
+    private int playerNumber = 0;
+
     private void Awake()
     {
-        PlayerInputGetter.Instance.MeleeAttack.performed += Attack;
+        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
+        PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += Attack;
 
         _attackTimer = _attackRate;
     }
