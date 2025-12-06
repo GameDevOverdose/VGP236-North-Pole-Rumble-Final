@@ -5579,7 +5579,7 @@ PrefabInstance:
       objectReference: {fileID: 105176540}
     - target: {fileID: 8791155056546326562, guid: 21d1916dbc4fe1a47b4c5a03b09fa865, type: 3}
       propertyPath: _deceleration
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8791155056546326562, guid: 21d1916dbc4fe1a47b4c5a03b09fa865, type: 3}
       propertyPath: _velocityDebugText

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _modelTransform = null;
 
     [SerializeField] private float _acceleration = 0.0f;
-    [SerializeField] private float _deceleration = 0.0f;
     [SerializeField] private float _moveSpeed = 0.0f;
     [SerializeField] private float _slideSpeed = 0.0f;
     private float _baseMoveSpeed = 0.0f;
@@ -98,7 +97,6 @@ public class PlayerController : MonoBehaviour
 
         float accelerationRate = 0.0f;
 
-
         if (IsMoving(moveInput) || _isSliding)
         {
             accelerationRate = _acceleration;
@@ -120,7 +118,7 @@ public class PlayerController : MonoBehaviour
         }
 
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
-
+        
         // Can't overwrite y, to allow gravity to still work
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
@@ -164,7 +162,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            accelerationRate = _deceleration;
+            //accelerationRate = _deceleration;
             targetHorizontalVelocity = Vector3.zero;
         }
 
