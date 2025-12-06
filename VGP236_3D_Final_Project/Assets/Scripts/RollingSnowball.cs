@@ -84,9 +84,4 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.localScale = _startScale;
         _knockbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
     }
-
-    public bool IsActive()
-    {
-        return _rollingSnowballInstance != null;
-    }
 }

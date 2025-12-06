@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private RollingSnowball _rollingSnowballScript = null;
     [SerializeField] private Rigidbody _rigidBody = null;
     [SerializeField] private Transform _modelTransform = null;
 
@@ -28,6 +27,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText3 = null;
     [SerializeField] private TMP_Text _debugText4 = null;
 
+
+
+
+
+    [SerializeField] private bool _isRolling = false;
+
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return _isSliding; } }
@@ -43,10 +48,6 @@ public class PlayerController : MonoBehaviour
         {
             _rigidBody = this.gameObject.GetComponent<Rigidbody>();
         }
-        if (_rollingSnowballScript == null)
-        {
-            Debug.LogError("Missing Rolling Snowball Reference on Player Controller");
-        }
 
         //Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
 
@@ -57,11 +58,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputGetter.Instance.SlideAction.performed += SlideAction;
+        PlayerInputGetter.Instance.GrowSnowballAction.performed += RollingAction;
     }
 
     private void OnDisable()
     {
         PlayerInputGetter.Instance.SlideAction.performed -= SlideAction;
+        PlayerInputGetter.Instance.GrowSnowballAction.performed -= RollingAction;
     }
 
     private void Update()
@@ -103,12 +106,16 @@ public class PlayerController : MonoBehaviour
 
         float accelerationRate = 0.0f;
 
-        if (IsMoving(moveInput) || _isSliding || _rollingSnowballScript.IsActive())
+        if (IsMoving(moveInput) || _isSliding || _isRolling)
         {
             accelerationRate = _acceleration;
 
+            if (_isSliding || _isRolling)
+            {
+                targetHorizontalVelocity = forward * Mathf.Abs(targetSpeed);
+            }
             // If the player is moving backwards
-            if (moveInput.y < 0.0f)
+            else if (moveInput.y < 0.0f)
             {
                 accelerationRate *= 0.5f;
 
@@ -123,7 +130,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (_isSliding || _rollingSnowballScript.IsActive())
+        if (_isSliding || _isRolling)
         {
             _rotationSpeed = Mathf.Max(_rotationSpeed - (1.5f * Time.deltaTime), 1.0f);
         }
@@ -150,6 +157,20 @@ public class PlayerController : MonoBehaviour
     private bool IsMoving(Vector2 moveInput)
     {
         return Mathf.Abs(moveInput.y) > 0.1f;
+    }
+
+    private void RollingAction(InputAction.CallbackContext context)
+    {
+        if (_isRolling)
+        {
+            _rotationSpeed = _baseRotationSpeed;
+            _isRolling = false;
+        }
+        else
+        {
+            _isRolling = true;
+        }
+
     }
 
     private void SlideAction(InputAction.CallbackContext context)
