@@ -6,7 +6,9 @@ public class KillVolume : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
+            int id = collision.gameObject.GetComponent<PlayerController>().GetId;
+            GameController.Instance.KillPlayer(id);
         }
     }
 }
