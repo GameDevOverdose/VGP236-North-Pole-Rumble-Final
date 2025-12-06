@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody = null;
     [SerializeField] private Transform _modelTransform = null;
+    private Coroutine _slideCoroutine = null;
 
     [SerializeField] private float _acceleration = 0.0f;
     [SerializeField] private float _moveSpeed = 0.0f;
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
-    public bool IsSliding { get { return _isSliding; } }
+    public bool IsSliding { get { return ReturnIsSliding(); } }
 
     private void Awake()
     {
@@ -61,11 +62,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PlayerInputGetter.Instance.SlideAction(playerNumber).performed += SlideAction;
+        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += RollingAction;
     }
 
     private void OnDisable()
     {
         PlayerInputGetter.Instance.SlideAction(playerNumber).performed -= SlideAction;
+        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed -= RollingAction;
     }
 
     private void Update()
@@ -160,10 +163,10 @@ public class PlayerController : MonoBehaviour
         return Mathf.Abs(moveInput.y) > 0.1f;
     }
 
-    //private bool IsSliding()
-    //{
-
-    //}
+    private bool ReturnIsSliding()
+    {
+        return _slideTimer > 0.0f;
+    }
 
     private void RollingAction(InputAction.CallbackContext context)
     {
@@ -181,7 +184,10 @@ public class PlayerController : MonoBehaviour
 
     private void SlideAction(InputAction.CallbackContext context)
     {
-        StartCoroutine(SlideCoroutine());
+        if (_slideCoroutine == null || IsSliding)
+        {
+            StartCoroutine(SlideCoroutine());
+        }
     }
 
     private IEnumerator SlideCoroutine()
@@ -200,5 +206,6 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
         _isSliding = false;
+
     }
 }
