@@ -5,23 +5,28 @@ using UnityEngine.InputSystem;
 
 public class MeleeAttack : MonoBehaviour
 {
-    private List<PlayerThrowback> throwbackScripts = new List<PlayerThrowback>();
+    private List<PlayerThrowback> _throwbackScripts = new List<PlayerThrowback>();
 
-    [SerializeField] private float attackRate = 1.0f;
-    private float attackTimer = 0.0f;
+    [Header("Attack Settings")]
+    [SerializeField] private float _attackRate = 1.0f;
+    private float _attackTimer = 0.0f;
+
+    [Header("Throwback Settings")]
+    [SerializeField] private float _hitThrowbackForce = 10.0f;
+    [SerializeField] private float _hitThrowbackIncrement = 0.25f;
 
     private void Awake()
     {
         PlayerInputGetter.Instance.MeleeAttack.performed += Attack;
 
-        attackTimer = attackRate;
+        _attackTimer = _attackRate;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.TryGetComponent<PlayerThrowback>(out PlayerThrowback throwback))
         {
-            throwbackScripts.Add(throwback);
+            _throwbackScripts.Add(throwback);
         }
     }
 
@@ -29,27 +34,27 @@ public class MeleeAttack : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<PlayerThrowback>(out PlayerThrowback throwback))
         {
-            throwbackScripts.Remove(throwback);
+            _throwbackScripts.Remove(throwback);
         }
     }
 
     private void Update()
     {
-        if(attackTimer < attackRate)
+        if(_attackTimer < _attackRate)
         {
-            attackTimer += Time.deltaTime;
+            _attackTimer += Time.deltaTime;
         }
     }
 
     private void Attack(InputAction.CallbackContext context)
     {
-        if(attackTimer >= attackRate)
+        if(_attackTimer >= _attackRate)
         {
-            attackTimer = 0.0f;
+            _attackTimer = 0.0f;
 
-            for (int i = 0; i < throwbackScripts.Count; i++)
+            for (int i = 0; i < _throwbackScripts.Count; i++)
             {
-                throwbackScripts[i].MeleeThrowback(transform.forward);
+                _throwbackScripts[i].Throwback(transform.forward, _hitThrowbackForce, _hitThrowbackIncrement);
             }
         }
     }
