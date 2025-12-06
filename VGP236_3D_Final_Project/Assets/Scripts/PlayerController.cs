@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_isSliding)
+        if (_slideTimer > 0.01f)
         {
             _slideTimer -= Time.deltaTime;
 
@@ -159,6 +159,11 @@ public class PlayerController : MonoBehaviour
         return Mathf.Abs(moveInput.y) > 0.1f;
     }
 
+    //private bool IsSliding()
+    //{
+
+    //}
+
     private void RollingAction(InputAction.CallbackContext context)
     {
         if (_isRolling)
@@ -180,6 +185,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator SlideCoroutine()
     {
+        Debug.Log("Started Slide Coroutine");
         yield return new WaitForSeconds(0.3f);
         _modelTransform.localRotation = Quaternion.Euler(90, _modelTransform.localRotation.y, _modelTransform.localRotation.y);
 
