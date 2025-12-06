@@ -25,10 +25,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText3 = null;
     [SerializeField] private TMP_Text _debugText4 = null;
 
+    [SerializeField] private int _playerId = 0;
+    [SerializeField] private int _maxHealth = 3;
+
+    private int _currentHealth = 0;
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return _isSliding; } }
+    public int GetId { get { return _playerId; } }
+    public string GetHealth { get { return $"P{(GetId + 1)}: {_currentHealth}/{_maxHealth}"; } }
+    public void RemoveHealth(int amount)
+    {
+        if (_currentHealth > 0)
+        {
+            _currentHealth -= amount;
+        } 
+    }
+    public void ResetVelocity()
+    {
+      _rigidBody.linearVelocity = Vector3.zero;
+    }
 
     private void Awake()
     {
@@ -44,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
 
+        _currentHealth = _maxHealth;
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
     }
