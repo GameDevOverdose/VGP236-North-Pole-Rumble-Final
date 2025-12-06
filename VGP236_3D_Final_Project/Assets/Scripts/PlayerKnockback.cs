@@ -1,0 +1,31 @@
+using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerKnockback : MonoBehaviour
+{
+    private Rigidbody _rigidbody = null;
+
+    [SerializeField] private float _maxKnockbackFactor = 2.0f;
+    private float _minKnockbackFactor = 1.0f;
+    private float _currentKnockbackFactor = 1.0f;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+
+        _currentKnockbackFactor = _minKnockbackFactor;
+    }
+
+    public void Knockback(Vector3 impactDirection, float forcePower, float _knockbackFactorIncrementRate)
+    {
+        Vector3 direction = impactDirection + (Vector3.up * 1.0f);
+        direction.Normalize();
+
+        _rigidbody.AddForce(direction * forcePower * _currentKnockbackFactor, ForceMode.VelocityChange);
+
+        _currentKnockbackFactor += _knockbackFactorIncrementRate;
+        Mathf.Clamp(_currentKnockbackFactor, _minKnockbackFactor, _maxKnockbackFactor);
+    }    
+}

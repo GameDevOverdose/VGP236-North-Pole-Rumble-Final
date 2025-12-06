@@ -67,8 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ea1fa0a9c26d74eaef5d30bdf30e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GiveThrowbackOnImpact
-  _hitThrowbackForce: 10
-  _hitThrowbackIncrement: 1
+  _knockbackForce: 10
+  _knockbackIncrement: 1
 --- !u!1 &5350702335371043138
 GameObject:
   m_ObjectHideFlags: 0

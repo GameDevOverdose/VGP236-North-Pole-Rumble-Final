@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 
 public class MeleeAttack : MonoBehaviour
 {
-    private List<PlayerThrowback> _throwbackScripts = new List<PlayerThrowback>();
+    private List<PlayerKnockback> _knockbackScripts = new List<PlayerKnockback>();
 
     [Header("Attack Settings")]
     [SerializeField] private float _attackRate = 1.0f;
     private float _attackTimer = 0.0f;
 
-    [Header("Throwback Settings")]
-    [SerializeField] private float _hitThrowbackForce = 10.0f;
-    [SerializeField] private float _hitThrowbackIncrement = 0.25f;
+    [Header("Knockback Settings")]
+    [SerializeField] private float _knockbackForce = 10.0f;
+    [SerializeField] private float _knockbackIncrement = 0.25f;
 
     private void Awake()
     {
@@ -24,17 +24,17 @@ public class MeleeAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<PlayerThrowback>(out PlayerThrowback throwback))
+        if(other.gameObject.TryGetComponent<PlayerKnockback>(out PlayerKnockback throwback))
         {
-            _throwbackScripts.Add(throwback);
+            _knockbackScripts.Add(throwback);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.TryGetComponent<PlayerThrowback>(out PlayerThrowback throwback))
+        if (other.gameObject.TryGetComponent<PlayerKnockback>(out PlayerKnockback throwback))
         {
-            _throwbackScripts.Remove(throwback);
+            _knockbackScripts.Remove(throwback);
         }
     }
 
@@ -52,9 +52,9 @@ public class MeleeAttack : MonoBehaviour
         {
             _attackTimer = 0.0f;
 
-            for (int i = 0; i < _throwbackScripts.Count; i++)
+            for (int i = 0; i < _knockbackScripts.Count; i++)
             {
-                _throwbackScripts[i].Throwback(transform.forward, _hitThrowbackForce, _hitThrowbackIncrement);
+                _knockbackScripts[i].Knockback(transform.forward, _knockbackForce, _knockbackIncrement);
             }
         }
     }
