@@ -167,5 +167,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ea1fa0a9c26d74eaef5d30bdf30e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GiveThrowbackOnImpact
-  _hitThrowbackForce: 2
-  _hitThrowbackIncrement: 0.25
+  _knockbackForce: 2
+  _knockbackIncrement: 0.25

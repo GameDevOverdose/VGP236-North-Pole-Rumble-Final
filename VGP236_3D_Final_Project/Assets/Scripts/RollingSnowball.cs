@@ -16,8 +16,8 @@ public class RollingSnowball : MonoBehaviour
     private float _playerMaxSpeed = 0.0f;
     private ProjectileThrow _projectileThrowScript = null;
 
-    private float _throwBackFactor = 0.0f;
-    private GiveThrowbackOnImpact _throwbackScript = null;
+    private float _currentKnockbackFactor = 0.0f;
+    private GiveKnockbackOnImpact _knockbackScript = null;
 
     //Can use this in case implementing a cooldown/powerup
     private bool _canRollSnowball = true;
@@ -36,7 +36,7 @@ public class RollingSnowball : MonoBehaviour
         if (_rollingSnowballInstance == null)
         {
             _projectileThrowScript.SetCanThrow(true);
-            _throwBackFactor = 0.0f;
+            _currentKnockbackFactor = 0.0f;
             return;
         }
 
@@ -53,14 +53,14 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.localScale = newScale;
 
         //Handle Scaling Throw Back Force
-        _throwbackScript.SetThrowbackFactor(_throwBackFactor);
+        _knockbackScript.SetThrowbackFactor(_currentKnockbackFactor);
     }
 
     private float GrowthFactor()
     {
         float playerCurrentSpeed = _playerRigidbody.linearVelocity.magnitude;
 
-        _throwBackFactor = Mathf.Clamp(_rollingSnowballInstance.transform.localScale.z / _endScale.z, 0.0f, 1.0f);
+        _currentKnockbackFactor = Mathf.Clamp(_rollingSnowballInstance.transform.localScale.z / _endScale.z, 0.0f, 1.0f);
         return Mathf.Clamp(playerCurrentSpeed / _playerMaxSpeed, 0.0f, 1.0f);
     }
 
@@ -82,6 +82,6 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance = Instantiate(_rollingSnowballPrefab, this.transform);
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
-        _throwbackScript = _rollingSnowballInstance.GetComponent<GiveThrowbackOnImpact>();
+        _knockbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
     }
 }
