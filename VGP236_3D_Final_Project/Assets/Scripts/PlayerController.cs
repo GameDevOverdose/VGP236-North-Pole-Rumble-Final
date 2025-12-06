@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private RollingSnowball _rollingSnowballScript = null;
     [SerializeField] private Rigidbody _rigidBody = null;
     [SerializeField] private Transform _modelTransform = null;
 
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText3 = null;
     [SerializeField] private TMP_Text _debugText4 = null;
 
-
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return _isSliding; } }
@@ -41,8 +41,12 @@ public class PlayerController : MonoBehaviour
         {
             _rigidBody = this.gameObject.GetComponent<Rigidbody>();
         }
+        if (_rollingSnowballScript == null)
+        {
+            _rollingSnowballScript = this.gameObject.GetComponent<RollingSnowball>();
+        }
 
-        Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
+        //Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
 
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
@@ -97,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
         float accelerationRate = 0.0f;
 
-        if (IsMoving(moveInput) || _isSliding)
+        if (IsMoving(moveInput) || _isSliding || _rollingSnowballScript.IsActive())
         {
             accelerationRate = _acceleration;
 
@@ -117,17 +121,22 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (_isSliding || _rollingSnowballScript.IsActive())
+        {
+            _rotationSpeed = 0.1f * Time.deltaTime;
+        }
+
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
-        
+
         // Can't overwrite y, to allow gravity to still work
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
 
-        _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
-        _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
-        _debugText4.text = "TargetHorizontalVelocity: " + targetHorizontalVelocity;
-        _velocityDebugText.text = ($"Velocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
+        //_debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
+        //_debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
+        //_debugText4.text = "TargetHorizontalVelocity: " + targetHorizontalVelocity;
+        //_velocityDebugText.text = ($"Velocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
 
         float rotation = moveInput.x * _rotationSpeed;
         _rigidBody.angularVelocity = new Vector3(0.0f, rotation, 0.0f);
@@ -234,6 +243,7 @@ public class PlayerController : MonoBehaviour
     {
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
         _moveSpeed = _baseMoveSpeed;
+        _rotationSpeed = _baseRotationSpeed;
         _isSliding = false;
     }
 
