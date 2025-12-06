@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText3 = null;
     [SerializeField] private TMP_Text _debugText4 = null;
 
+    private int playerNumber = 0;
 
 
 
@@ -53,18 +54,18 @@ public class PlayerController : MonoBehaviour
 
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
+
+        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
     }
 
     private void OnEnable()
     {
-        PlayerInputGetter.Instance.SlideAction.performed += SlideAction;
-        PlayerInputGetter.Instance.GrowSnowballAction.performed += RollingAction;
+        PlayerInputGetter.Instance.SlideAction(playerNumber).performed += SlideAction;
     }
 
     private void OnDisable()
     {
-        PlayerInputGetter.Instance.SlideAction.performed -= SlideAction;
-        PlayerInputGetter.Instance.GrowSnowballAction.performed -= RollingAction;
+        PlayerInputGetter.Instance.SlideAction(playerNumber).performed -= SlideAction;
     }
 
     private void Update()
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction.ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction(playerNumber).ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;

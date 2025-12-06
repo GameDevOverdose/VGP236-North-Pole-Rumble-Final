@@ -16,10 +16,12 @@ public class RollingSnowball : MonoBehaviour
     private ProjectileThrow _projectileThrowScript = null;
 
     private float _currentKnockbackFactor = 0.0f;
-    private GiveKnockbackOnImpact _knockbackScript = null;
+    private GiveKnockbackOnImpact _throwbackScript = null;
 
     //Can use this in case implementing a cooldown/powerup
     private bool _canRollSnowball = true;
+
+    private int playerNumber = 0;
 
     private void Awake()
     {
@@ -27,7 +29,8 @@ public class RollingSnowball : MonoBehaviour
         _playerMaxSpeed = transform.parent.GetComponent<PlayerController>().MoveSpeed;
         _projectileThrowScript = transform.parent.GetComponent<ProjectileThrow>();
 
-        PlayerInputGetter.Instance.GrowSnowballAction.performed += GrowSnowball;
+        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
+        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += GrowSnowball;
     }
 
     private void Update()
@@ -52,7 +55,7 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.localScale = newScale;
 
         //Handle Scaling Throw Back Force
-        _knockbackScript.SetThrowbackFactor(_currentKnockbackFactor);
+        _throwbackScript.SetThrowbackFactor(_currentKnockbackFactor);
     }
 
     private float GrowthFactor()
@@ -82,6 +85,6 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance = Instantiate(_rollingSnowballPrefab, this.transform);
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
-        _knockbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
+        _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
     }
 }
