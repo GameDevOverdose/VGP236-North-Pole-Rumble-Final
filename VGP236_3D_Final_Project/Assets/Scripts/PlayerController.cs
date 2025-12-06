@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
-    public bool IsSliding { get { return _isSliding; } }
+    public bool IsSliding { get { return ReturnIsSliding(); } }
     public int GetId { get { return _playerId; } }
     public string GetHealth { get { return $"P{(GetId + 1)}: {_currentHealth}/{_maxHealth}"; } }
     public void RemoveHealth(int amount)
@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_slideCoroutine == null || IsSliding)
         {
-            StartCoroutine(SlideCoroutine());
+            _slideCoroutine = StartCoroutine(SlideCoroutine());
         }
     }
 
