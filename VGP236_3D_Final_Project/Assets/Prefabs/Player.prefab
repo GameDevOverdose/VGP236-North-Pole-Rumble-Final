@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _attackRate: 1
-  _hitThrowbackForce: 4
-  _hitThrowbackIncrement: 0.25
+  _knockbackForce: 10
+  _knockbackIncrement: 0.25
 --- !u!1 &275526683010936809
 GameObject:
   m_ObjectHideFlags: 0
@@ -7835,17 +7835,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0f500c22316414c9a445044bef113b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test_PlayerController
+  _rollingSnowballScript: {fileID: 6417858811419144891}
   _rigidBody: {fileID: 1510715784677508413}
   _modelTransform: {fileID: 3133697882373033835}
   _acceleration: 3.5
-  _deceleration: 0
   _moveSpeed: 7.5
   _slideSpeed: 10
   _rotationSpeed: 4
-  _slideTimer: 0
   _isSliding: 0
   _disableMoveBackwards: 0
   _velocityDebugText: {fileID: 0}
+  _debugText2: {fileID: 0}
+  _debugText3: {fileID: 0}
+  _debugText4: {fileID: 0}
 --- !u!114 &916120486820680106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7874,7 +7876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3fcf331ad783bc46a203398930f61b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _maxThrowbackFactor: 2
+  _maxKnockbackFactor: 2
 --- !u!1 &7958307979250649345
 GameObject:
   m_ObjectHideFlags: 0

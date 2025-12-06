@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -74,6 +73,7 @@ public class RollingSnowball : MonoBehaviour
         {
             //JUST DESTROY FOR TESTING PURPOSES
             Destroy(_rollingSnowballInstance);
+            _rollingSnowballInstance = null; // Temp, convert from instantiate
         }
     }
 
@@ -83,5 +83,10 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
         _knockbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
+    }
+
+    public bool IsActive()
+    {
+        return _rollingSnowballInstance != null;
     }
 }
