@@ -13,11 +13,14 @@ public class ProjectileThrow : MonoBehaviour
 
     private bool _canThrow = true;
 
+    private int playerNumber = 0;
+
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
 
-        PlayerInputGetter.Instance.ThrowAction.performed += Throw;
+        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.gameObject);
+        PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += Throw;
 
         _throwTimer = _throwRate;
     }
