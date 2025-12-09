@@ -7854,12 +7854,16 @@ MonoBehaviour:
   _moveSpeed: 7.5
   _slideSpeed: 10
   _rotationSpeed: 4
+  _maxSlideTime: 1.7
   _isSliding: 0
   _disableMoveBackwards: 0
   _velocityDebugText: {fileID: 0}
   _debugText2: {fileID: 0}
   _debugText3: {fileID: 0}
   _debugText4: {fileID: 0}
+  _playerId: 0
+  _maxHealth: 3
+  _isRolling: 0
 --- !u!114 &916120486820680106
 MonoBehaviour:
   m_ObjectHideFlags: 0

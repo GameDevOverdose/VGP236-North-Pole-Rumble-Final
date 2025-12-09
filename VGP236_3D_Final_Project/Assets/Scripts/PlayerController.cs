@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_slideTimer > 0.01f)
+        if (_slideTimer > 0.00f)
         {
             _slideTimer -= Time.deltaTime;
 
@@ -164,6 +165,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
 
+        //Testing purposes only
         if (SceneManager.GetActiveScene().name == "Test")
         {
             _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
@@ -202,10 +204,12 @@ public class PlayerController : MonoBehaviour
 
     private void SlideAction(InputAction.CallbackContext context)
     {
-        if (_slideCoroutine == null || IsSliding)
+        if (_slideCoroutine != null)
         {
-            _slideCoroutine = StartCoroutine(SlideCoroutine());
+            return;
         }
+        
+        _slideCoroutine = StartCoroutine(SlideCoroutine());
     }
 
     private IEnumerator SlideCoroutine()
@@ -220,10 +224,12 @@ public class PlayerController : MonoBehaviour
     }
     private void EndSlide()
     {
+        Debug.Log("Ended Slide");
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
         _isSliding = false;
-
+        StopCoroutine(_slideCoroutine);
+        _slideCoroutine = null;
     }
 }
