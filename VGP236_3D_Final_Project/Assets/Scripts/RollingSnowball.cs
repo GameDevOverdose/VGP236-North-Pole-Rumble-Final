@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -77,6 +76,7 @@ public class RollingSnowball : MonoBehaviour
         {
             //JUST DESTROY FOR TESTING PURPOSES
             Destroy(_rollingSnowballInstance);
+            _rollingSnowballInstance = null; // Temp, convert from instantiate
         }
     }
 
