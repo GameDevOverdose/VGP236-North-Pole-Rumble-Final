@@ -7,6 +7,9 @@ public class GiveKnockbackOnImpact : MonoBehaviour
     [SerializeField] private float _knockbackIncrement = 0.25f;
     private float _knockbackFactor = 1.0f;
 
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _impactSound;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerKnockback>(out PlayerKnockback throwbackScript))
