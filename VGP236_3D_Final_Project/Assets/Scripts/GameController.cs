@@ -52,8 +52,6 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             lastCheckpointPosition.Add(players[i].transform.position);
-            players[i].Initialize();
-            healthText[i].text = players[i].GetHealth;
         }
     }
 
@@ -61,7 +59,6 @@ public class GameController : MonoBehaviour
     {
         //hurtSound.Play();
         players[playerId].RemoveHealth(1);
-        healthText[playerId].text = players[playerId].GetHealth;
         players[playerId].ResetVelocity();
         players[playerId].transform.position = lastCheckpointPosition[playerId];
     }
