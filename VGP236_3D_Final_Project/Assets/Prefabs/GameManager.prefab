@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2414777601239205461
+--- !u!1 &5170613042446419662
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5174438885134965391}
-  - component: {fileID: 1536286118496361604}
-  - component: {fileID: 8341265479046461527}
+  - component: {fileID: 5172944068564632865}
+  - component: {fileID: 6584485676555424834}
+  - component: {fileID: 4292993918388889127}
+  - component: {fileID: 7318399439576820912}
+  - component: {fileID: 3272789313078839646}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5174438885134965391
+--- !u!4 &5172944068564632865
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2414777601239205461}
+  m_GameObject: {fileID: 5170613042446419662}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,27 +35,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1536286118496361604
+--- !u!114 &6584485676555424834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2414777601239205461}
+  m_GameObject: {fileID: 5170613042446419662}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b4285840a79a04491bf819f4c40847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputGetter
---- !u!114 &8341265479046461527
+--- !u!114 &4292993918388889127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2414777601239205461}
+  m_GameObject: {fileID: 5170613042446419662}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14d925930ccbc93459ad29868f29c0e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &7318399439576820912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170613042446419662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8d62af461c04140a602e859254270e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _cosmeticTypes:
+  - _penguinMaterial: {fileID: 0}
+    _accessory: 0
+  - _penguinMaterial: {fileID: 2100000, guid: f4f81185d121774409fb1b6d00654643, type: 2}
+    _accessory: 1
+  - _penguinMaterial: {fileID: 2100000, guid: f4f81185d121774409fb1b6d00654643, type: 2}
+    _accessory: 0
+  - _penguinMaterial: {fileID: 0}
+    _accessory: 2
+--- !u!114 &3272789313078839646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170613042446419662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7a7f4f6a8e54e458e06c09f9f51b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnManager
+  playerSpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
