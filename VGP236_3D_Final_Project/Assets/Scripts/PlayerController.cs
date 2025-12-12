@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _modelTransform = null;
     [SerializeField] private GroundCheck _groundCheck = null;
     private Coroutine _slideCoroutine = null;
+    private Coroutine _meleeCoroutine = null;
+    private Coroutine _throwCoroutine = null;
 
     [SerializeField] private float _acceleration = 0.0f;
     [SerializeField] private float _moveSpeed = 0.0f;
@@ -80,12 +82,16 @@ public class PlayerController : MonoBehaviour
     {
         PlayerInputGetter.Instance.SlideAction(playerNumber).performed += SlideAction;
         PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += RollingAction;
+        PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += MeleeAction;
+        PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += ThrowAction;
     }
 
     private void OnDisable()
     {
         PlayerInputGetter.Instance.SlideAction(playerNumber).performed -= SlideAction;
         PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed -= RollingAction;
+        PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed -= MeleeAction;
+        PlayerInputGetter.Instance.ThrowAction(playerNumber).performed -= ThrowAction;
     }
 
     private void Update()
@@ -162,7 +168,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
-        //_animator.SetFloat("Horizontal Speed", currentVelocity.x);
+        _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
 
         //Testing purposes only
         if (SceneManager.GetActiveScene().name == "Test")
@@ -211,6 +217,46 @@ public class PlayerController : MonoBehaviour
         }
         
         _slideCoroutine = StartCoroutine(SlideCoroutine());
+    }
+
+    private void MeleeAction(InputAction.CallbackContext context)
+    {
+        if (_meleeCoroutine != null)
+        {
+            return;
+        }
+
+        _meleeCoroutine = StartCoroutine(MeleeCoroutine());
+    }
+
+    private void ThrowAction(InputAction.CallbackContext context)
+    {
+        if (_throwCoroutine != null)
+        {
+            return;
+        }
+
+        _throwCoroutine = StartCoroutine(ThrowCoroutine());
+    }
+
+    private IEnumerator ThrowCoroutine()
+    {
+        Debug.Log("Started Melee Coroutine");
+        _animator.SetBool("IsThrow", true);
+        yield return new WaitForSeconds(0.3f);
+
+        _animator.SetBool("IsThrow", false);
+        _throwCoroutine = null;
+    }
+
+    private IEnumerator MeleeCoroutine()
+    {
+        Debug.Log("Started Melee Coroutine");
+        _animator.SetBool("IsMelee", true);
+        yield return new WaitForSeconds(0.3f);
+
+        _animator.SetBool("IsMelee", false);
+        _meleeCoroutine = null;
     }
 
     private IEnumerator SlideCoroutine()

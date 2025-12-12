@@ -53,7 +53,8 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         {
             HorizontalMove(m_Character.CharacterMover.CharacterInputMovement.sqrMagnitude);
             VerticalMove(m_Character.CharacterMover.Movement.y);
-            Grounded(m_Character.IsGrounded);
+            Grounded(m_Character.
+                );
         }
 
         /// <summary>
