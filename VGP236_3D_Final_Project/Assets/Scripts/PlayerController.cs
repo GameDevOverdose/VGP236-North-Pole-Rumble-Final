@@ -37,17 +37,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _isRolling = false;
 
     private int _currentHealth = 0;
+    public static event Action OnPlayerDamaged;
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return ReturnIsSliding(); } }
     public int GetId { get { return _playerId; } }
-    public string GetHealth { get { return $"P{(GetId + 1)}: {_currentHealth}/{_maxHealth}"; } }
+    public int GetCurrentHealth { get { return _currentHealth; } }
+    public int GetMaxHealth { get { return _maxHealth; } }
     public void RemoveHealth(int amount)
     {
         if (_currentHealth > 0)
         {
             _currentHealth -= amount;
+            OnPlayerDamaged?.Invoke();
         } 
     }
     public void ResetVelocity()
