@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidBody = null;
+    [SerializeField] private Animator _animator = null;
     [SerializeField] private Transform _modelTransform = null;
+    [SerializeField] private GroundCheck _groundCheck = null;
     private Coroutine _slideCoroutine = null;
 
     [SerializeField] private float _acceleration = 0.0f;
@@ -32,10 +34,6 @@ public class PlayerController : MonoBehaviour
     private int playerNumber = 0;
     [SerializeField] private int _playerId = 0;
     [SerializeField] private int _maxHealth = 3;
-
-
-
-
     [SerializeField] private bool _isRolling = false;
 
     private int _currentHealth = 0;
@@ -164,6 +162,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity.x = currentHorizontalVelocity.x;
         currentVelocity.z = currentHorizontalVelocity.z;
         _rigidBody.linearVelocity = currentVelocity;
+        //_animator.SetFloat("Horizontal Speed", currentVelocity.x);
 
         //Testing purposes only
         if (SceneManager.GetActiveScene().name == "Test")
@@ -176,6 +175,8 @@ public class PlayerController : MonoBehaviour
 
         float rotation = moveInput.x * _rotationSpeed;
         _rigidBody.angularVelocity = new Vector3(0.0f, rotation, 0.0f);
+
+        //_animator.SetFloat("Vertical Speed", _rigidBody.linearVelocity.y);
     }
 
     private bool IsMoving(Vector2 moveInput)
