@@ -116,14 +116,20 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         /// </summary>
         protected virtual void Update()
         {
-            if (m_CharacterController.isGrounded ) {
+            if (m_CharacterController.isGrounded ) 
+            {
                 IsGrounded = true;
-            } else if (
+            } 
+            else if (
                 Physics.Raycast(transform.position + transform.up*0.5f, -1f*transform.up, out var hit,
-                    m_GroundRaycastLength+0.5f, int.MaxValue , QueryTriggerInteraction.Ignore)) {
-                if (m_CharacterMover.IsJumping == false) {
+                    m_GroundRaycastLength+0.5f, int.MaxValue , QueryTriggerInteraction.Ignore)) 
+            {
+                if (m_CharacterMover.IsJumping == false) 
+                {
                     IsGrounded = true;
-                } else {
+                } 
+                else 
+                {
                 }
                
             }
