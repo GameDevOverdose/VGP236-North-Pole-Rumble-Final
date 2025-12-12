@@ -10,6 +10,7 @@ public class RollingSnowball : MonoBehaviour
     [SerializeField] Vector3 _endScale = Vector3.one;
 
     [SerializeField] private float _maxGrowSpeed = 1.0f;
+    [SerializeField] private float _rotateGrowSpeed = 1.0f;
 
     private Rigidbody _playerRigidbody = null;
     private float _playerMaxSpeed = 0.0f;
@@ -53,6 +54,8 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position += _rollingSnowballInstance.transform.forward * (deltaScale.z / 2f);
 
         _rollingSnowballInstance.transform.localScale = newScale;
+
+        _rollingSnowballInstance.transform.GetChild(0).Rotate(Vector3.right, _rotateGrowSpeed * GrowthFactor() * Time.deltaTime * 360f);
 
         //Handle Scaling Throw Back Force
         _throwbackScript.SetThrowbackFactor(_currentKnockbackFactor);
