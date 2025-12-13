@@ -6,8 +6,16 @@ public class HealthHeartBar : MonoBehaviour
 {
     [SerializeField] GameObject _heartPrefab;
     [SerializeField] PlayerController _playerController;
+    private PlayerHealth _playerHealthScript;
 
     private List<HealthHeart> _hearts = new List<HealthHeart>();
+
+    void Start()
+    {
+        _playerHealthScript = _playerController.GetComponent<PlayerHealth>();
+
+        DrawHearts();
+    }
 
     private void OnEnable()
     {
@@ -42,27 +50,19 @@ public class HealthHeartBar : MonoBehaviour
     {
         ClearHearts();
 
-        for (int i = 0; i < _playerController.GetMaxHealth; ++i)
+        for (int i = 0; i < _playerHealthScript.MaxHealth; ++i)
         {
             CreateEmptyHeart();
         }
 
-        for (int i = 0; i < _playerController.GetCurrentHealth; ++i)
+        for (int i = 0; i < _playerHealthScript.CurrentHealth; ++i)
         {
             _hearts[i].SetHeartImage(HeartStatus.Full);
         }
-
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void UpdateUI()
     {
         DrawHearts();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

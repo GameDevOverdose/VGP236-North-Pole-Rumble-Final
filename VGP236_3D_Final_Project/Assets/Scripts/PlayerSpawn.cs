@@ -8,7 +8,12 @@ public class PlayerSpawn : MonoBehaviour
     {
         _playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
 
-        if(PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber) != null)
+        Spawn();
+    }
+
+    public void Spawn()
+    {
+        if (PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber) != null)
         {
             transform.position = PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber).position;
         }
