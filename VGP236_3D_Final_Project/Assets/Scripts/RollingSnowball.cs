@@ -80,8 +80,7 @@ public class RollingSnowball : MonoBehaviour
         else
         {
             //JUST DESTROY FOR TESTING PURPOSES
-            Destroy(_rollingSnowballInstance);
-            _rollingSnowballInstance = null; // Temp, convert from instantiate
+            DestroySnowball();
         }
     }
 
@@ -91,5 +90,14 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
         _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
+    }
+
+    public void DestroySnowball()
+    {
+        if (_rollingSnowballInstance != null)
+        {
+            Destroy(_rollingSnowballInstance);
+            _rollingSnowballInstance = null;
+        }
     }
 }

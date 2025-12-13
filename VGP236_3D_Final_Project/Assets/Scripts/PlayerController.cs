@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator = null;
     [SerializeField] private Transform _modelTransform = null;
     [SerializeField] private GroundCheck _groundCheck = null;
+    [SerializeField] private PlayerKnockback _playerKnockback = null;
+    [SerializeField] private RollingSnowball _rollingSnowball = null;
     private Coroutine _slideCoroutine = null;
     private Coroutine _meleeCoroutine = null;
     private Coroutine _throwCoroutine = null;
@@ -187,13 +189,23 @@ public class PlayerController : MonoBehaviour
     {
         if (_isRolling)
         {
-            _rotationSpeed = _baseRotationSpeed;
-            _isRolling = false;
+            EndRolling();
         }
         else if (_groundCheck.IsGrounded)
         {
             _isRolling = true;
         }
+    }
+
+    private void EndRolling()
+    {
+        if (!_isRolling)
+        {
+            return;
+        }
+
+        _rotationSpeed = _baseRotationSpeed;
+        _isRolling = false;
     }
 
     private void SlideAction(InputAction.CallbackContext context)
@@ -259,6 +271,11 @@ public class PlayerController : MonoBehaviour
     }
     private void EndSlide()
     {
+        if (!_isSliding)
+        {
+            return;
+        }
+
         Debug.Log("Ended Slide");
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
         _moveSpeed = _baseMoveSpeed;
@@ -273,9 +290,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidBody.linearVelocity = Vector3.zero;
 
-        //NEEED TO RESET EVERTHING HERE
-        //ANIMATIONS
-        //SLIDE
-        //ROLLING
+        EndSlide();
+        EndRolling();
+        _rollingSnowball.DestroySnowball();
     }
 }

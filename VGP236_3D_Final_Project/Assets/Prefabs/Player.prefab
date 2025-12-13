@@ -7963,6 +7963,8 @@ MonoBehaviour:
   _animator: {fileID: 3774605201006066742}
   _modelTransform: {fileID: 3133697882373033835}
   _groundCheck: {fileID: 7619115941719210491}
+  _playerKnockback: {fileID: 6080405253003525559}
+  _rollingSnowball: {fileID: 6417858811419144891}
   _acceleration: 3.5
   _moveSpeed: 6.5
   _slideSpeed: 12
