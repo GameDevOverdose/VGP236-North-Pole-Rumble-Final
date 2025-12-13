@@ -149,11 +149,14 @@ public class PlayerController : MonoBehaviour
 
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
 
-        // Can't overwrite y, to allow gravity to still work
-        currentVelocity.x = currentHorizontalVelocity.x;
-        currentVelocity.z = currentHorizontalVelocity.z;
-        _rigidBody.linearVelocity = currentVelocity;
-        _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
+        if (_groundCheck.IsGrounded)
+        {
+            // Can't overwrite y, to allow gravity to still work
+            currentVelocity.x = currentHorizontalVelocity.x;
+            currentVelocity.z = currentHorizontalVelocity.z;
+            _rigidBody.linearVelocity = currentVelocity;
+            _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
+        }
 
         //Testing purposes only
         if (SceneManager.GetActiveScene().name == "Test")
@@ -187,20 +190,19 @@ public class PlayerController : MonoBehaviour
             _rotationSpeed = _baseRotationSpeed;
             _isRolling = false;
         }
-        else
+        else if (_groundCheck.IsGrounded)
         {
             _isRolling = true;
         }
-
     }
 
     private void SlideAction(InputAction.CallbackContext context)
     {
-        if (_slideCoroutine != null)
+        if (_slideCoroutine != null || !_groundCheck.IsGrounded)
         {
             return;
         }
-        
+
         _slideCoroutine = StartCoroutine(SlideCoroutine());
     }
 

@@ -6654,6 +6654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c37d5d1f0a1784b9e7b2d2ccd85e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _groundCheck: {fileID: 7619115941719210491}
   _rollingSnowballPrefab: {fileID: 4260517361953932431, guid: 4ed33b797db1de5438871c8321ed02f1, type: 3}
   _endScale: {x: 5, y: 5, z: 5}
   _maxGrowSpeed: 1

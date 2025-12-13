@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class RollingSnowball : MonoBehaviour
 {
+    [SerializeField] private GroundCheck _groundCheck = null;
+
     [SerializeField] private GameObject _rollingSnowballPrefab = null;
     private GameObject _rollingSnowballInstance = null;
 
@@ -71,7 +73,7 @@ public class RollingSnowball : MonoBehaviour
 
     private void GrowSnowball(InputAction.CallbackContext context)
     {
-        if (_rollingSnowballInstance == null && _canRollSnowball)
+        if (_rollingSnowballInstance == null && _canRollSnowball && _groundCheck.IsGrounded)
         {
             InstantiateSnowball();
         }
