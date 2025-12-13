@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator = null;
     [SerializeField] private Transform _modelTransform = null;
     [SerializeField] private GroundCheck _groundCheck = null;
+    [SerializeField] private PlayerKnockback _playerKnockback = null;
+    [SerializeField] private RollingSnowball _rollingSnowball = null;
     private Coroutine _slideCoroutine = null;
     private Coroutine _meleeCoroutine = null;
     private Coroutine _throwCoroutine = null;
@@ -149,11 +151,14 @@ public class PlayerController : MonoBehaviour
 
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetHorizontalVelocity, accelerationRate * Time.deltaTime);
 
-        // Can't overwrite y, to allow gravity to still work
-        currentVelocity.x = currentHorizontalVelocity.x;
-        currentVelocity.z = currentHorizontalVelocity.z;
-        _rigidBody.linearVelocity = currentVelocity;
-        _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
+        if (_groundCheck.IsGrounded)
+        {
+            // Can't overwrite y, to allow gravity to still work
+            currentVelocity.x = currentHorizontalVelocity.x;
+            currentVelocity.z = currentHorizontalVelocity.z;
+            _rigidBody.linearVelocity = currentVelocity;
+            _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
+        }
 
         //Testing purposes only
         if (SceneManager.GetActiveScene().name == "Test")
@@ -184,23 +189,32 @@ public class PlayerController : MonoBehaviour
     {
         if (_isRolling)
         {
-            _rotationSpeed = _baseRotationSpeed;
-            _isRolling = false;
+            EndRolling();
         }
-        else
+        else if (_groundCheck.IsGrounded)
         {
             _isRolling = true;
         }
+    }
 
+    private void EndRolling()
+    {
+        if (!_isRolling)
+        {
+            return;
+        }
+
+        _rotationSpeed = _baseRotationSpeed;
+        _isRolling = false;
     }
 
     private void SlideAction(InputAction.CallbackContext context)
     {
-        if (_slideCoroutine != null)
+        if (_slideCoroutine != null || !_groundCheck.IsGrounded)
         {
             return;
         }
-        
+
         _slideCoroutine = StartCoroutine(SlideCoroutine());
     }
 
@@ -253,14 +267,21 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = _slideSpeed;
         _slideTimer = _maxSlideTime;
         _isSliding = true;
+        _animator.SetBool("IsSliding", true);
     }
     private void EndSlide()
     {
+        if (!_isSliding)
+        {
+            return;
+        }
+
         Debug.Log("Ended Slide");
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
         _isSliding = false;
+        _animator.SetBool("IsSliding", false);
         StopCoroutine(_slideCoroutine);
         _slideCoroutine = null;
     }
@@ -269,9 +290,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidBody.linearVelocity = Vector3.zero;
 
-        //NEEED TO RESET EVERTHING HERE
-        //ANIMATIONS
-        //SLIDE
-        //ROLLING
+        EndSlide();
+        EndRolling();
+        _rollingSnowball.DestroySnowball();
     }
 }

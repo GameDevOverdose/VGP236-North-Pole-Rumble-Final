@@ -6654,6 +6654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c37d5d1f0a1784b9e7b2d2ccd85e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _groundCheck: {fileID: 7619115941719210491}
   _rollingSnowballPrefab: {fileID: 4260517361953932431, guid: 4ed33b797db1de5438871c8321ed02f1, type: 3}
   _endScale: {x: 5, y: 5, z: 5}
   _maxGrowSpeed: 1
@@ -7238,7 +7239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b347b3b26908f344b7dad0359d7a2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroundCheck
-  _animator: {fileID: 1468097654300738260}
+  _animator: {fileID: 3774605201006066742}
 --- !u!54 &2646633475235297497
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7309,10 +7310,10 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5851200758806182092}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 72fcee3806ee8cd4fad48dcd98afb351, type: 3}
-  m_Controller: {fileID: 9100000, guid: 23cc3060ea686444d8439e5480a3b746, type: 2}
-  m_CullingMode: 1
+  m_Controller: {fileID: 9100000, guid: 198177aa985c6e8478f024ef355c585a, type: 2}
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -7848,7 +7849,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4978754740450001818}
-  - component: {fileID: 1468097654300738260}
   - component: {fileID: 1510715784677508413}
   - component: {fileID: 279947329186471209}
   - component: {fileID: 8405803423745252887}
@@ -7857,7 +7857,6 @@ GameObject:
   - component: {fileID: 6080405253003525559}
   - component: {fileID: 412587979182393564}
   - component: {fileID: 1784174295864665470}
-  - component: {fileID: 8783093256297505408}
   - component: {fileID: 7192971384554162845}
   m_Layer: 10
   m_Name: Player
@@ -7886,28 +7885,6 @@ Transform:
   - {fileID: 7122216241428036504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1468097654300738260
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7896268985449660786}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 72fcee3806ee8cd4fad48dcd98afb351, type: 3}
-  m_Controller: {fileID: 9100000, guid: 198177aa985c6e8478f024ef355c585a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &1510715784677508413
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7983,12 +7960,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Test_PlayerController
   _rigidBody: {fileID: 1510715784677508413}
-  _animator: {fileID: 1468097654300738260}
+  _animator: {fileID: 3774605201006066742}
   _modelTransform: {fileID: 3133697882373033835}
   _groundCheck: {fileID: 7619115941719210491}
+  _playerKnockback: {fileID: 6080405253003525559}
+  _rollingSnowball: {fileID: 6417858811419144891}
   _acceleration: 3.5
-  _moveSpeed: 7.5
-  _slideSpeed: 10
+  _moveSpeed: 6.5
+  _slideSpeed: 12
   _rotationSpeed: 4
   _maxSlideTime: 1.7
   _isSliding: 0
@@ -8054,22 +8033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2977f2f0b05d52f438d2556a30070dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!111 &8783093256297505408
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7896268985449660786}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!114 &7192971384554162845
 MonoBehaviour:
   m_ObjectHideFlags: 0

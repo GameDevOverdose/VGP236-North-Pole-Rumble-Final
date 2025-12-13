@@ -16,6 +16,7 @@ public class PlayerSpawn : MonoBehaviour
         if (PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber) != null)
         {
             transform.position = PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber).position;
+            transform.rotation = PlayerSpawnManager.Instance.GetPlayerSpawnPoint(_playerNumber).rotation;
         }
     }
 }
