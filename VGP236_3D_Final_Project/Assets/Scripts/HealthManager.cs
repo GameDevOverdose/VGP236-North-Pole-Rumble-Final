@@ -36,16 +36,16 @@ public class HealthManager : MonoBehaviour
     {
         GameObject playerToKill = PlayerManager.Instance._playersInScene[playerNumberIndex];
 
-        playerToKill.GetComponent<PlayerHealth>().IncrementHealth(-1);
-        UIManager.Instance.UpdateHealthUIElements();
+        if (!GameStateManager.Instance.GameWon)
+        {
+            playerToKill.GetComponent<PlayerHealth>().IncrementHealth(-1);
+            UIManager.Instance.UpdateHealthUIElements();
+        }
 
         if (PlayerManager.Instance._playersInScene[playerNumberIndex].GetComponent<PlayerHealth>().IsAlive)
         {
-            if(!GameStateManager.Instance.GameWon)
-            {
-                playerToKill.GetComponent<PlayerController>().ResetPlayerState();
-                playerToKill.GetComponent<PlayerSpawn>().Spawn();
-            }
+            playerToKill.GetComponent<PlayerController>().ResetPlayerState();
+            playerToKill.GetComponent<PlayerSpawn>().Spawn();
         }
         else
         {

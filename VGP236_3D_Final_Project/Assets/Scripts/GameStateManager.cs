@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class GameStateManager : MonoBehaviour
 
     private bool _gameWon = false;
     public bool GameWon { get { return _gameWon; } }
+
+    [SerializeField] private CinemachineCamera winCamera = null;
 
     private void Awake()
     {
@@ -43,6 +46,9 @@ public class GameStateManager : MonoBehaviour
         {
             _gameWon = true;
             Debug.Log($"Player {lastPlayerAliveIndex + 1} wins the game!");
+
+            winCamera.gameObject.SetActive(true);
+            winCamera.Follow = PlayerManager.Instance._playersInScene[lastPlayerAliveIndex].transform;
         }
     }
 }
