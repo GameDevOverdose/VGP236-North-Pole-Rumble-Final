@@ -22,13 +22,10 @@ public class GameStateManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_gameWon)
-        {
-            CheckWinCondition();
-        }
+
     }
 
-    private void CheckWinCondition()
+    public void CheckWinCondition()
     {
         int playersCurrentlyAlive = 0;
         int lastPlayerAliveIndex = -1;
@@ -39,7 +36,6 @@ public class GameStateManager : MonoBehaviour
             {
                 playersCurrentlyAlive++;
                 lastPlayerAliveIndex = i;
-                return;
             }
         }
 

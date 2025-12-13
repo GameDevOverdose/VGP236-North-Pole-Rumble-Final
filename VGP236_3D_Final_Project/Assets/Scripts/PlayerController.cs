@@ -38,9 +38,6 @@ public class PlayerController : MonoBehaviour
     private int playerNumber = 0;
     [SerializeField] private bool _isRolling = false;
 
-    private int _currentHealth = 0;
-    public static event Action OnPlayerDamaged;
-
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return ReturnIsSliding(); } }
