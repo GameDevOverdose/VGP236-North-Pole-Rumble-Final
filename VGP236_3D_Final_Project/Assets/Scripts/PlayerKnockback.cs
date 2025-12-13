@@ -8,6 +8,8 @@ public class PlayerKnockback : MonoBehaviour
     private float _minKnockbackFactor = 1.0f;
     private float _currentKnockbackFactor = 1.0f;
 
+    public float CurrentKnockbackFactor { get => _currentKnockbackFactor; }
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();

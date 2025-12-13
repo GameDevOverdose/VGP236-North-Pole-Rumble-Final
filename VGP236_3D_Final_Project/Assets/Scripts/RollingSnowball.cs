@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class RollingSnowball : MonoBehaviour
 {
+    [SerializeField] private GroundCheck _groundCheck = null;
+
     [SerializeField] private GameObject _rollingSnowballPrefab = null;
     private GameObject _rollingSnowballInstance = null;
 
@@ -71,15 +73,14 @@ public class RollingSnowball : MonoBehaviour
 
     private void GrowSnowball(InputAction.CallbackContext context)
     {
-        if (_rollingSnowballInstance == null && _canRollSnowball)
+        if (_rollingSnowballInstance == null && _canRollSnowball && _groundCheck.IsGrounded)
         {
             InstantiateSnowball();
         }
         else
         {
             //JUST DESTROY FOR TESTING PURPOSES
-            Destroy(_rollingSnowballInstance);
-            _rollingSnowballInstance = null; // Temp, convert from instantiate
+            DestroySnowball();
         }
     }
 
@@ -89,5 +90,14 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
         _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
+    }
+
+    public void DestroySnowball()
+    {
+        if (_rollingSnowballInstance != null)
+        {
+            Destroy(_rollingSnowballInstance);
+            _rollingSnowballInstance = null;
+        }
     }
 }
