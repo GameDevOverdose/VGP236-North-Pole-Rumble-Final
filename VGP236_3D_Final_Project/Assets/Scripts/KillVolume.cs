@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class KillVolume : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController) != false)
         {
-            //collision.gameObject.SetActive(false);
-            int id = collision.gameObject.GetComponent<PlayerController>().GetId;
-            GameController.Instance.KillPlayer(id);
+            int playerIndex = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(other.gameObject);
+            HealthManager.Instance.KillPlayer(playerIndex);
         }
     }
 }

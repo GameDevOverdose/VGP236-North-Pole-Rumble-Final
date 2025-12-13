@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text _debugText4 = null;
 
     private int playerNumber = 0;
-    [SerializeField] private int _playerId = 0;
-    [SerializeField] private int _maxHealth = 3;
     [SerializeField] private bool _isRolling = false;
 
     private int _currentHealth = 0;
@@ -44,21 +42,6 @@ public class PlayerController : MonoBehaviour
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return ReturnIsSliding(); } }
-    public int GetId { get { return _playerId; } }
-    public int GetCurrentHealth { get { return _currentHealth; } }
-    public int GetMaxHealth { get { return _maxHealth; } }
-    public void RemoveHealth(int amount)
-    {
-        if (_currentHealth > 0)
-        {
-            _currentHealth -= amount;
-            OnPlayerDamaged?.Invoke();
-        } 
-    }
-    public void ResetVelocity()
-    {
-      _rigidBody.linearVelocity = Vector3.zero;
-    }
 
     private void Awake()
     {
@@ -74,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
         //Debug.Assert(_rigidBody != null, $"{this} is missing a RigidBody");
 
-        _currentHealth = _maxHealth;
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
 
@@ -281,5 +263,15 @@ public class PlayerController : MonoBehaviour
         _isSliding = false;
         StopCoroutine(_slideCoroutine);
         _slideCoroutine = null;
+    }
+
+    public void ResetPlayerState()
+    {
+        _rigidBody.linearVelocity = Vector3.zero;
+
+        //NEEED TO RESET EVERTHING HERE
+        //ANIMATIONS
+        //SLIDE
+        //ROLLING
     }
 }

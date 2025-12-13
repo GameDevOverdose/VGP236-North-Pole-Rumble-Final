@@ -19,7 +19,7 @@ public class PlayerNumberAssigner : MonoBehaviour
     private int playersSupported;
     public int PlayersSupported { get { return playersSupported; } }
 
-    private List <GameObject> _playersInScene = new List<GameObject>();
+    public List <GameObject> _playersInScene = new List<GameObject>();
     private List <PlayerNumber> _assignedPlayerNumbers = new List<PlayerNumber>();
 
     private void Awake()
