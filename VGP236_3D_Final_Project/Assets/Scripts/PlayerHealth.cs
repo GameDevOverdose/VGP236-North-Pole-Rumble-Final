@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     private int _currentHealth;
     public int CurrentHealth { get { return _currentHealth; } }
 
+    public bool IsAlive { get { return _currentHealth > 0; } }
+
     private void Awake()
     {
         _currentHealth = _maxHealth;

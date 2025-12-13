@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-30)]
-public class PlayerNumberAssigner : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    private static PlayerNumberAssigner _instance = null;
-    public static PlayerNumberAssigner Instance { get { return _instance; } }
+    private static PlayerManager _instance = null;
+    public static PlayerManager Instance { get { return _instance; } }
 
     public enum PlayerNumber
     {

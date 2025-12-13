@@ -61,7 +61,7 @@ public class HealthHeartBar : MonoBehaviour
         }
     }
 
-    private void UpdateUI()
+    private void Update()
     {
         DrawHearts();
     }

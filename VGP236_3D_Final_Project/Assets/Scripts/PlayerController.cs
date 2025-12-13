@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
 
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
     }
 
     private void OnEnable()

@@ -6,7 +6,7 @@ public class KillVolume : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController) != false)
         {
-            int playerIndex = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(other.gameObject);
+            int playerIndex = PlayerManager.Instance.GetPlayerNumberIndex(other.gameObject);
             HealthManager.Instance.KillPlayer(playerIndex);
         }
     }

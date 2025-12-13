@@ -11,7 +11,7 @@ public class PlayerCosmetics : MonoBehaviour
 
     private void Awake()
     {
-        _playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
+        _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
         _currentPlayerCosmetics = PlayerCosmeticsManager.Instance.GetPlayerCosmetic(_playerNumber);
 
         if (_currentPlayerCosmetics._penguinMaterial != null)

@@ -19,7 +19,7 @@ public class ProjectileThrow : MonoBehaviour
     {
         _playerController = GetComponent<PlayerController>();
 
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.gameObject);
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.gameObject);
         PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += Throw;
 
         _throwTimer = _throwRate;
