@@ -253,6 +253,7 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = _slideSpeed;
         _slideTimer = _maxSlideTime;
         _isSliding = true;
+        _animator.SetBool("IsSliding", true);
     }
     private void EndSlide()
     {
@@ -261,6 +262,7 @@ public class PlayerController : MonoBehaviour
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
         _isSliding = false;
+        _animator.SetBool("IsSliding", false);
         StopCoroutine(_slideCoroutine);
         _slideCoroutine = null;
     }
