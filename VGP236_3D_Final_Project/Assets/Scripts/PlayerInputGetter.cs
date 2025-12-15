@@ -41,7 +41,7 @@ public class PlayerInputGetter : MonoBehaviour
 
         _playerInput = new PlayerInput();
 
-        for (int i = 0; i < PlayerNumberAssigner.Instance.PlayersSupported; i++)
+        for (int i = 0; i < PlayerManager.Instance.PlayersSupported; i++)
         {
             InputActions action = new InputActions();
 

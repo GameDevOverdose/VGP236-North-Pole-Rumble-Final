@@ -38,9 +38,6 @@ public class PlayerController : MonoBehaviour
     private int playerNumber = 0;
     [SerializeField] private bool _isRolling = false;
 
-    private int _currentHealth = 0;
-    public static event Action OnPlayerDamaged;
-
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return ReturnIsSliding(); } }
@@ -62,7 +59,7 @@ public class PlayerController : MonoBehaviour
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
 
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
     }
 
     private void OnEnable()

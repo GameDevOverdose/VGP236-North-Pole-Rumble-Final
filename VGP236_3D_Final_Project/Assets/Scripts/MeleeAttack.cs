@@ -19,7 +19,7 @@ public class MeleeAttack : MonoBehaviour
 
     private void Awake()
     {
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
         PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += Attack;
 
         _attackTimer = _attackRate;
