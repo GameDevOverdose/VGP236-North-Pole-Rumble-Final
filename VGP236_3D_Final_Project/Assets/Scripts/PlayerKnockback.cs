@@ -14,6 +14,16 @@ public class PlayerKnockback : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
 
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _currentKnockbackFactor = _minKnockbackFactor;
     }
 

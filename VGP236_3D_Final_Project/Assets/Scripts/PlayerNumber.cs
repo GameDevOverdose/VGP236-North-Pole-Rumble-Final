@@ -8,6 +8,16 @@ public class PlayerNumber : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _currentPlayerNumber = PlayerManager.Instance.GetPlayerNumber(this.gameObject);
     }
 }

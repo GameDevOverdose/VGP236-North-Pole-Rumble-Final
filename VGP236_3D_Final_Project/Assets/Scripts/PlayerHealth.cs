@@ -13,6 +13,16 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _currentHealth = _maxHealth;
     }
 
@@ -21,6 +31,6 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth += amount;
         Mathf.Clamp(_currentHealth, _minHealth, _maxHealth);
 
-        GameStateManager.Instance.CheckWinCondition();
+        //GameStateManager.Instance.CheckWinCondition();
     }
 }

@@ -17,6 +17,16 @@ public class ProjectileThrow : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _playerController = GetComponent<PlayerController>();
 
         playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.gameObject);

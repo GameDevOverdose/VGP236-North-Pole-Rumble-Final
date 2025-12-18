@@ -11,6 +11,16 @@ public class PlayerCosmetics : MonoBehaviour
 
     private void Awake()
     {
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
         _currentPlayerCosmetics = PlayerCosmeticsManager.Instance.GetPlayerCosmetic(_playerNumber);
 
