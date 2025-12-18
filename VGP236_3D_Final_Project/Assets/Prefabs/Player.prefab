@@ -6620,7 +6620,7 @@ GameObject:
   - component: {fileID: 8354475380458937008}
   - component: {fileID: 6417858811419144891}
   m_Layer: 0
-  m_Name: Snowball Spawn
+  m_Name: Rolling Snowball Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
