@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -68,6 +69,8 @@ public class PlayerController : MonoBehaviour
         PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += RollingAction;
         PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += MeleeAction;
         PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += ThrowAction;
+
+        Initialize();
     }
 
     private void OnDisable()
@@ -158,7 +161,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Testing purposes only
-        if (SceneManager.GetActiveScene().name == "Test")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Test")
         {
             _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
             _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
