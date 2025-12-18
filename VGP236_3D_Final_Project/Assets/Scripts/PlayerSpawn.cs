@@ -14,7 +14,7 @@ public class PlayerSpawn : MonoBehaviour
         Initialize();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
         _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
 
