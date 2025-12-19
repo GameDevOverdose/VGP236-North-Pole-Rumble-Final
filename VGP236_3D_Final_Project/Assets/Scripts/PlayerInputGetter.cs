@@ -62,18 +62,18 @@ public class PlayerInputGetter : MonoBehaviour
                     action._rollSnowballAction = _playerInput.Player_2.Roll;
                     break;
                 case 2:
-                    action._moveAction = _playerInput.Player_2.Move;
-                    action._slideAction = _playerInput.Player_2.Slide;
-                    action._throwAction = _playerInput.Player_2.Throw;
-                    action._meleeAction = _playerInput.Player_2.Melee;
-                    action._rollSnowballAction = _playerInput.Player_2.Roll;
+                    action._moveAction = _playerInput.Player_3.Move;
+                    action._slideAction = _playerInput.Player_3.Slide;
+                    action._throwAction = _playerInput.Player_3.Throw;
+                    action._meleeAction = _playerInput.Player_3.Melee;
+                    action._rollSnowballAction = _playerInput.Player_3.Roll;
                     break;
                 case 3:
-                    action._moveAction = _playerInput.Player_2.Move;
-                    action._slideAction = _playerInput.Player_2.Slide;
-                    action._throwAction = _playerInput.Player_2.Throw;
-                    action._meleeAction = _playerInput.Player_2.Melee;
-                    action._rollSnowballAction = _playerInput.Player_2.Roll;
+                    action._moveAction = _playerInput.Player_4.Move;
+                    action._slideAction = _playerInput.Player_4.Slide;
+                    action._throwAction = _playerInput.Player_4.Throw;
+                    action._meleeAction = _playerInput.Player_4.Melee;
+                    action._rollSnowballAction = _playerInput.Player_4.Roll;
                     break;
             }
 
