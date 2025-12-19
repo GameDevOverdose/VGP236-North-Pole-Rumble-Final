@@ -3,6 +3,7 @@ using UnityEngine;
 public class GiveKnockbackOnImpact : MonoBehaviour
 {
     private PlayerController _controller = null;
+    private RollingSnowball _rollingSnowball = null;
 
     [Header("Throwback Settings")]
     [SerializeField] private float _knockbackForce = 5.0f;
@@ -35,7 +36,6 @@ public class GiveKnockbackOnImpact : MonoBehaviour
         if (other.gameObject.TryGetComponent<PlayerKnockback>(out PlayerKnockback throwbackScript))
         {
             Debug.Log(other.gameObject.name);
-            Debug.Log("throwback");
             throwbackScript.Knockback(transform.forward, _knockbackForce * _knockbackFactor, _knockbackIncrement * _knockbackFactor);
 
             _controller.EndRolling();
@@ -45,6 +45,8 @@ public class GiveKnockbackOnImpact : MonoBehaviour
         {
             SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position);
             Destroy(gameObject);
+
+            _controller.EndRolling();
         }
     }
 
