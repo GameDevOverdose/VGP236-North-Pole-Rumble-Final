@@ -209,7 +209,7 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        DisableUIElement (_gamePauseUIParent.gameObject);
+        //DisableUIElement (_gamePauseUIParent.gameObject);
         _gamePauseUIParent.gameObject.SetActive(false);
     }
 

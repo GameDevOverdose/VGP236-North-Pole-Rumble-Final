@@ -9,8 +9,7 @@ public class GiveKnockbackOnImpact : MonoBehaviour
     [SerializeField] private float _knockbackIncrement = 0.25f;
     private float _knockbackFactor = 1.0f;
 
-    private AudioSource _audioSource;
-    [SerializeField] private AudioClip _impactSound;
+    [SerializeField] private AudioClip[] _impactSounds;
 
     public void Initialize(PlayerController controller)
     {
@@ -26,6 +25,7 @@ public class GiveKnockbackOnImpact : MonoBehaviour
 
         if (!collision.gameObject.CompareTag("Projectile"))
         {
+            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position);
             Destroy(gameObject);
         }
     }
@@ -43,6 +43,7 @@ public class GiveKnockbackOnImpact : MonoBehaviour
 
         if (!other.gameObject.CompareTag("Projectile"))
         {
+            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position);
             Destroy(gameObject);
         }
     }
