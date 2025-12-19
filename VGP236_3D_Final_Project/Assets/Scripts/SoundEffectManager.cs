@@ -14,7 +14,7 @@ public class SoundEffectManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -28,6 +28,36 @@ public class SoundEffectManager : MonoBehaviour
         if (clip != null)
         {
             AudioSource.PlayClipAtPoint(clip, position, volume);
+        }
+    }
+
+    public AudioSource PlayLoopingSound(AudioClip clip, Vector3 position, float volume = 1f)
+    {
+        if (clip == null)
+        {
+            return null;
+        }
+
+        GameObject soundObject = new GameObject(clip.name + "Looping Sound");
+        soundObject.transform.position = position;
+
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.loop = true;
+        audioSource.spatialBlend = 1f;
+        audioSource.Play();
+
+        // Keep reference to stop it later
+        return audioSource;
+    }
+
+    public void StopLoopingSound(AudioSource source)
+    {
+        if (source != null)
+        {
+            source.Stop();
+            Destroy(source.gameObject);
         }
     }
 
