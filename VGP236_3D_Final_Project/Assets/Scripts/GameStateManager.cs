@@ -78,7 +78,12 @@ public class GameStateManager : MonoBehaviour
                     CameraManager.Instance.ActivateCamera(gameCamera);
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
-                    StartCoroutine(UIManager.Instance.EnableGameUI(0.0f));
+                    
+                    if(_lastState != GameState.GAME_PAUSED)
+                    {
+                        StartCoroutine(UIManager.Instance.EnableGameUI(0.0f));
+                    }
+
                     StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
                     StartCoroutine(UIManager.Instance.DisablePauseUI(0.0f));
 

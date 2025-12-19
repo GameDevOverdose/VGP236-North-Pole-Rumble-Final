@@ -33,9 +33,10 @@ public class HealthManager : MonoBehaviour
             UIManager.Instance.UpdateHealthUIElements();
         }
 
+        playerToKill.GetComponent<PlayerController>().ResetPlayerState();
+
         if (PlayerManager.Instance._activatedPlayers[playerNumberIndex].GetComponent<PlayerHealth>().IsAlive)
         {
-            playerToKill.GetComponent<PlayerController>().ResetPlayerState();
             playerToKill.GetComponent<PlayerSpawn>().Spawn();
         }
         else

@@ -131,6 +131,8 @@ MonoBehaviour:
   _attackRate: 1
   _knockbackForce: 4
   _knockbackIncrement: 0.25
+  _attackSounds:
+  - {fileID: 8300000, guid: 36d999163f3799744b244de86cb94373, type: 3}
 --- !u!1 &275526683010936809
 GameObject:
   m_ObjectHideFlags: 0
@@ -7992,6 +7994,8 @@ MonoBehaviour:
   _spawnTransform: {fileID: 4856345461697171704}
   _throwForce: 10
   _throwRate: 0.25
+  _throwSounds:
+  - {fileID: 8300000, guid: f9a135e4ccc08634580e0e74aface2fe, type: 3}
 --- !u!114 &6080405253003525559
 MonoBehaviour:
   m_ObjectHideFlags: 0

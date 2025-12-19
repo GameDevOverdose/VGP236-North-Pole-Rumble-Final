@@ -20,6 +20,26 @@ public class SoundEffectManager : MonoBehaviour
 
     public void PlaySoundInSpace(AudioClip clip, Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(clip, position);
+        PlaySoundInSpace(clip, position, 1.0f);
+    }
+
+    public void PlaySoundInSpace(AudioClip clip, Vector3 position, float volume)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, position, volume);
+        }
+    }
+
+    public AudioClip GetRandomSound(AudioClip[] clips)
+    {
+        if (clips == null || clips.Length == 0)
+        {
+            Debug.LogWarning("GetRandomSound called with null or empty clips array.");
+            return null;
+        }
+
+        int randomIndex = Random.Range(0, clips.Length);
+        return clips[randomIndex];
     }
 }

@@ -15,6 +15,10 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private float _knockbackForce = 10.0f;
     [SerializeField] private float _knockbackIncrement = 0.25f;
 
+    [Header("Sound Effect")]
+    [SerializeField] private AudioClip[] _attackSounds;
+    [SerializeField] private AudioClip[] _impactSounds;
+
     private int playerNumber = 0;
 
     private void Awake()
@@ -64,9 +68,18 @@ public class MeleeAttack : MonoBehaviour
         {
             _attackTimer = 0.0f;
 
+            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_attackSounds), transform.position);
+
+            bool aPlayerHit = _knockbackScripts.Count > 0;
+
             for (int i = 0; i < _knockbackScripts.Count; i++)
             {
                 _knockbackScripts[i].Knockback(transform.forward, _knockbackForce, _knockbackIncrement);
+            }
+
+            if(aPlayerHit)
+            {
+                SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position, 4.0f);
             }
         }
     }

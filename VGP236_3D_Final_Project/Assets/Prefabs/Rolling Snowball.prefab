@@ -70,6 +70,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GiveThrowbackOnImpact
   _knockbackForce: 10
   _knockbackIncrement: 1
+  _impactSounds:
+  - {fileID: 8300000, guid: cfe6175cebd87964aa02d496d1d31c53, type: 3}
+  - {fileID: 8300000, guid: 48a5be29ae4e8b1478d6dc8b782d1444, type: 3}
+  - {fileID: 8300000, guid: a714f8597b428f940be7c71980938231, type: 3}
+  - {fileID: 8300000, guid: dfe57a83e7b472044bfef5e5718df6a5, type: 3}
+  - {fileID: 8300000, guid: 2fd7a46076df0004ab88349022516ef2, type: 3}
+  - {fileID: 8300000, guid: b342396f732719b47997496f2ee05a3f, type: 3}
+  - {fileID: 8300000, guid: 2f557cdd0abb21e42b45120f5125561a, type: 3}
+  - {fileID: 8300000, guid: 8e6644dcd09e6e2469bb6cf453a0d8b9, type: 3}
+  - {fileID: 8300000, guid: 9f63cb0e4cab3f64a9081e9530682878, type: 3}
+  - {fileID: 8300000, guid: dc5b14ba2fefb1d45a7b365af9af2a66, type: 3}
 --- !u!1 &5350702335371043138
 GameObject:
   m_ObjectHideFlags: 0
