@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class RollingSnowball : MonoBehaviour
 {
+    private PlayerController _playerController = null;
     [SerializeField] private GroundCheck _groundCheck = null;
 
     [SerializeField] private GameObject _rollingSnowballPrefab = null;
@@ -28,8 +29,9 @@ public class RollingSnowball : MonoBehaviour
 
     private void Awake()
     {
+        _playerController = transform.parent.GetComponent<PlayerController>();
         _playerRigidbody = transform.parent.GetComponent<Rigidbody>();
-        _playerMaxSpeed = transform.parent.GetComponent<PlayerController>().MoveSpeed;
+        _playerMaxSpeed = _playerController.MoveSpeed;
         _projectileThrowScript = transform.parent.GetComponent<ProjectileThrow>();
 
         Initialize();
@@ -89,7 +91,6 @@ public class RollingSnowball : MonoBehaviour
         }
         else
         {
-            //JUST DESTROY FOR TESTING PURPOSES
             DestroySnowball();
         }
     }
@@ -100,6 +101,7 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
         _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
+        _throwbackScript.Initialize(_playerController);
     }
 
     public void DestroySnowball()

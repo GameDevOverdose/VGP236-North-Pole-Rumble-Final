@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void EndRolling()
+    public void EndRolling()
     {
         if (!_isRolling)
         {
@@ -288,7 +288,9 @@ public class PlayerController : MonoBehaviour
 
     public void ResetPlayerState()
     {
+        Debug.Log($"reset player {gameObject.name}");
         _rigidBody.linearVelocity = Vector3.zero;
+        _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
 
         EndSlide();
         EndRolling();
