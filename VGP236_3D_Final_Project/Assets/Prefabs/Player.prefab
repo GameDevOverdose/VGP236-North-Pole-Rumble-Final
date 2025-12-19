@@ -132,7 +132,13 @@ MonoBehaviour:
   _knockbackForce: 4
   _knockbackIncrement: 0.25
   _attackSounds:
+  - {fileID: 8300000, guid: 4dbb4476281898b4093a770c0f5c7bb4, type: 3}
+  - {fileID: 8300000, guid: 8a9ac065b5b42394db349adb44d3831c, type: 3}
+  - {fileID: 8300000, guid: 96f11c7be421e6c4a94f07941d71865e, type: 3}
+  _attackSoundsVolume: 1
+  _impactSounds:
   - {fileID: 8300000, guid: 36d999163f3799744b244de86cb94373, type: 3}
+  _impactSoundsVolume: 1
 --- !u!1 &275526683010936809
 GameObject:
   m_ObjectHideFlags: 0
@@ -6660,6 +6666,9 @@ MonoBehaviour:
   _endScale: {x: 5, y: 5, z: 5}
   _maxGrowSpeed: 1
   _rotateGrowSpeed: 1.25
+  rollingSound:
+  - {fileID: 8300000, guid: 74cd987cb2cda974bb72234b82fe1f22, type: 3}
+  rollingSoundVolume: 1
 --- !u!1 &4494668449389791842
 GameObject:
   m_ObjectHideFlags: 0
@@ -7996,6 +8005,7 @@ MonoBehaviour:
   _throwRate: 0.25
   _throwSounds:
   - {fileID: 8300000, guid: f9a135e4ccc08634580e0e74aface2fe, type: 3}
+  _throwSoundVolume: 1
 --- !u!114 &6080405253003525559
 MonoBehaviour:
   m_ObjectHideFlags: 0

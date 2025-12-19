@@ -9,7 +9,9 @@ public class GiveKnockbackOnImpact : MonoBehaviour
     [SerializeField] private float _knockbackIncrement = 0.25f;
     private float _knockbackFactor = 1.0f;
 
+    [Header("Audio Settings")]
     [SerializeField] private AudioClip[] _impactSounds;
+    [SerializeField] private float _soundsVolume = 1.0f;
 
     public void Initialize(PlayerController controller)
     {
@@ -43,7 +45,7 @@ public class GiveKnockbackOnImpact : MonoBehaviour
 
         if (!other.gameObject.CompareTag("Projectile"))
         {
-            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position);
+            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position, _soundsVolume);
             Destroy(gameObject);
         }
     }

@@ -27,7 +27,8 @@ public class RollingSnowball : MonoBehaviour
 
     private int playerNumber = 0;
 
-    public AudioClip[] rollingSound;
+    [SerializeField] private AudioClip[] rollingSound;
+    [SerializeField] private float rollingSoundVolume = 1.0f;
     private AudioSource _rollingSnowballAudioSource = null;
 
     private void Awake()
@@ -109,7 +110,7 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballAudioSource = SoundEffectManager.Instance.PlayLoopingSound(
             SoundEffectManager.Instance.GetRandomSound(rollingSound),
             _rollingSnowballInstance.transform.position,
-            1.0f);
+            rollingSoundVolume);
     }
 
     public void DestroySnowball()

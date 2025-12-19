@@ -9,6 +9,7 @@ public class GameStateManager : MonoBehaviour
     [System.Serializable]
     public enum GameState
     {
+        NONE = -1,
         MENU = 0,
         GAME = 1,
         GAME_WON = 2,
@@ -40,6 +41,8 @@ public class GameStateManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        MusicManager.Instance.PlayMenuMusic();
     }
 
     private void Update()
@@ -67,6 +70,8 @@ public class GameStateManager : MonoBehaviour
 
                     CameraManager.Instance.ActivateCamera(menuCamera);
 
+                    //MusicManager.Instance.PlayMenuMusic();
+
                     StartCoroutine(UIManager.Instance.EnableMainMenu(0.0f));
                     StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
                     StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
@@ -76,6 +81,8 @@ public class GameStateManager : MonoBehaviour
                 case GameState.GAME:
 
                     CameraManager.Instance.ActivateCamera(gameCamera);
+
+                    MusicManager.Instance.PlayGameMusic();
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     
@@ -95,6 +102,8 @@ public class GameStateManager : MonoBehaviour
 
                     CameraManager.Instance.ActivateCamera(winCamera);
 
+                    MusicManager.Instance.PlayWinMusic();
+
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
                     StartCoroutine(UIManager.Instance.EnableWinUI(0.0f));
@@ -102,6 +111,8 @@ public class GameStateManager : MonoBehaviour
                     break;
 
                 case GameState.GAME_PAUSED:
+
+                    MusicManager.Instance.SetVolume(0.5f);
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     //StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
