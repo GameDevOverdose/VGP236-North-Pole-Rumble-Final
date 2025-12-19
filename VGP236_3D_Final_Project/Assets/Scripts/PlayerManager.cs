@@ -67,7 +67,8 @@ public class PlayerManager : MonoBehaviour
                     return;
                 }
 
-                _activatedPlayers[i].GetComponent<PlayerSpawn>().Spawn();
+                _activatedPlayers[i].GetComponent<PlayerSpawn>().Initialize();
+                _activatedPlayers[i].GetComponent<PlayerHealth>().Initialize();
             }
             else
             {

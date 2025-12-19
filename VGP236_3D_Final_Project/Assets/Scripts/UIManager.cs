@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [DefaultExecutionOrder(-20)]
 public class UIManager : MonoBehaviour
@@ -11,7 +12,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _menuParent = null;
     [SerializeField] private Transform _playersHealthUIParent = null;
     [SerializeField] private Transform _gameWinUIParent = null;
+    [SerializeField] private Transform _gamePauseUIParent = null;
+
     public List<GameObject> _playersHealthUI = new List<GameObject>();
+
+    private Dictionary<GameObject, Vector3> _originalScales = new Dictionary<GameObject, Vector3>();
+
+    [SerializeField] private float _uIScaleDuration = 0.5f;
 
     private void Awake()
     {
@@ -24,9 +31,16 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        foreach (Transform child in _playersHealthUIParent)
+        RecordOriginalScale(_menuParent.gameObject);
+        RecordOriginalScale(_playersHealthUIParent.gameObject);
+        RecordOriginalScale(_gameWinUIParent.gameObject);
+        RecordOriginalScale(_gamePauseUIParent.gameObject);
+
+        foreach (Transform healthUI in _playersHealthUIParent)
         {
-            _playersHealthUI.Add(child.gameObject);
+            _playersHealthUI.Add(healthUI.gameObject);
+
+            RecordOriginalScale(healthUI.gameObject);
         }
 
         for (int i = 0; i < _playersHealthUI.Count; i++)
@@ -80,21 +94,57 @@ public class UIManager : MonoBehaviour
         StartCoroutine(DisableUI(uiElement));
     }
 
-    public IEnumerator DisableUI(GameObject uiElement)
-    {
-        yield return null;
-        uiElement.SetActive(false);
-    }
-
     public void EnableUIElement(GameObject uiElement)
     {
         StartCoroutine(EnableUI(uiElement));
     }
 
+    public IEnumerator DisableUI(GameObject uiElement)
+    {
+        yield return null;
+
+        yield return StartCoroutine(DoScaleUI(uiElement, false));
+    }
+
     public IEnumerator EnableUI(GameObject uiElement)
     {
         yield return null;
+
         uiElement.SetActive(true);
+        yield return StartCoroutine(DoScaleUI(uiElement, true));
+    }
+
+    IEnumerator DoScaleUI(GameObject uiElement, bool scaleUp)
+    {
+        if (uiElement == null)
+        {
+            yield break;
+        }
+
+        Vector3 targetScale = Vector3.one;
+
+        if (_originalScales.TryGetValue(uiElement, out var savedScale))
+        {
+            targetScale = savedScale;
+        }
+
+        if (scaleUp)
+        {
+            uiElement.transform.localScale = Vector3.zero;
+            Tween scale = uiElement.transform.DOScale(targetScale, _uIScaleDuration).SetEase(Ease.InOutBack);
+
+            yield return scale.WaitForCompletion();
+        }
+        else
+        {
+            //uiElement.SetActive(true);
+
+            Tween scale = uiElement.transform.DOScale(Vector3.zero, _uIScaleDuration).SetEase(Ease.InOutSine);
+            yield return scale.WaitForCompletion();
+
+            uiElement.SetActive(false);
+            uiElement.transform.localScale = targetScale;
+        }
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -145,5 +195,31 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         DisableUIElement(_gameWinUIParent.gameObject);
+    }
+
+    public IEnumerator EnablePauseUI(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        //EnableUIElement (_gamePauseUIParent.gameObject);
+        _gamePauseUIParent.gameObject.SetActive(true);
+    }
+
+    public IEnumerator DisablePauseUI(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DisableUIElement (_gamePauseUIParent.gameObject);
+        _gamePauseUIParent.gameObject.SetActive(false);
+    }
+
+    /////////////////////////////////////////////////////////////////////
+    
+    private void RecordOriginalScale(GameObject uiElement)
+    {
+        if(uiElement != null && !_originalScales.ContainsKey(uiElement))
+        {
+            _originalScales[uiElement] = uiElement.transform.localScale;
+        }
     }
 }

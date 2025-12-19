@@ -27,7 +27,7 @@ public class HealthManager : MonoBehaviour
     {
         GameObject playerToKill = PlayerManager.Instance._activatedPlayers[playerNumberIndex];
 
-        if (!(GameStateManager.Instance.CurrentGameState == GameStateManager.GameState.GAMEWON))
+        if (!(GameStateManager.Instance.CurrentGameState == GameStateManager.GameState.GAME_WON))
         {
             playerToKill.GetComponent<PlayerHealth>().IncrementHealth(-1);
             UIManager.Instance.UpdateHealthUIElements();

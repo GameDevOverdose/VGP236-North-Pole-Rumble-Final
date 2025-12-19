@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
         Initialize();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
         _currentHealth = _maxHealth;
     }
