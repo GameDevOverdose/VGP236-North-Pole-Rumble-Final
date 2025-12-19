@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform _menuParent = null;
     [SerializeField] private Transform _playersHealthUIParent = null;
     [SerializeField] private Transform _gameWinUIParent = null;
+    [SerializeField] private Transform _gamePauseUIParent = null;
+
     public List<GameObject> _playersHealthUI = new List<GameObject>();
 
     private Dictionary<GameObject, Vector3> _originalScales = new Dictionary<GameObject, Vector3>();
@@ -32,6 +34,7 @@ public class UIManager : MonoBehaviour
         RecordOriginalScale(_menuParent.gameObject);
         RecordOriginalScale(_playersHealthUIParent.gameObject);
         RecordOriginalScale(_gameWinUIParent.gameObject);
+        RecordOriginalScale(_gamePauseUIParent.gameObject);
 
         foreach (Transform healthUI in _playersHealthUIParent)
         {
@@ -192,6 +195,22 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         DisableUIElement(_gameWinUIParent.gameObject);
+    }
+
+    public IEnumerator EnablePauseUI(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        //EnableUIElement (_gamePauseUIParent.gameObject);
+        _gamePauseUIParent.gameObject.SetActive(true);
+    }
+
+    public IEnumerator DisablePauseUI(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DisableUIElement (_gamePauseUIParent.gameObject);
+        _gamePauseUIParent.gameObject.SetActive(false);
     }
 
     /////////////////////////////////////////////////////////////////////

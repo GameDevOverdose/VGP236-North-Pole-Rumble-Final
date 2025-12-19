@@ -10,8 +10,10 @@ public class GameStateManager : MonoBehaviour
     public enum GameState
     {
         MENU = 0,
-        INGAME = 1,
-        GAMEWON = 2
+        GAME = 1,
+        GAME_WON = 2,
+        GAME_PAUSED = 3,
+        GAME_COUNTDOWN = 4
     }
 
     private static GameStateManager _instance = null;
@@ -42,52 +44,87 @@ public class GameStateManager : MonoBehaviour
 
     private void Update()
     {
+        //RUNS EVERY FRAME
         switch (_currentGameState)
         {
-            case GameState.MENU:
-                break;
-            case GameState.INGAME:
+            case GameState.GAME:
                 CheckWinCondition();
                 break;
-            case GameState.GAMEWON:
+            case GameState.GAME_WON:
                 CheckWinInput();
                 break;
             default:
-                Debug.LogError("Unhandled game state in GameStateManager Update");
+                //Debug.LogError("Unhandled game state in GameStateManager Update");
                 break;
         }
 
+        //ONLY RUNS ON STATE CHANGE
         if(_lastState != _currentGameState)
         {
             switch (_currentGameState)
             {
                 case GameState.MENU:
+
                     CameraManager.Instance.ActivateCamera(menuCamera);
 
                     StartCoroutine(UIManager.Instance.EnableMainMenu(0.0f));
                     StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
                     StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
+                    StartCoroutine(UIManager.Instance.DisablePauseUI(0.0f));
                     break;
-                case GameState.INGAME:
+
+                case GameState.GAME:
+
                     CameraManager.Instance.ActivateCamera(gameCamera);
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     StartCoroutine(UIManager.Instance.EnableGameUI(0.0f));
                     StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
+                    StartCoroutine(UIManager.Instance.DisablePauseUI(0.0f));
+
+                    Time.timeScale = 1.0f;
+
                     break;
-                case GameState.GAMEWON:
+
+                case GameState.GAME_WON:
+
                     CameraManager.Instance.ActivateCamera(winCamera);
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
                     StartCoroutine(UIManager.Instance.EnableWinUI(0.0f));
+                    StartCoroutine(UIManager.Instance.DisablePauseUI(0.0f));
                     break;
+
+                case GameState.GAME_PAUSED:
+
+                    StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
+                    //StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));
+                    StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
+                    StartCoroutine(UIManager.Instance.EnablePauseUI(0.0f));
+
+                    Time.timeScale = 0.0f;
+
+                    break;
+
                 default:
                     Debug.LogError("Unhandled game state in GameStateManager Update");
                     break;
             }
 
             _lastState = _currentGameState;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(_currentGameState == GameState.GAME)
+            {
+                _currentGameState = GameState.GAME_PAUSED;
+            }    
+            else if(_currentGameState == GameState.GAME_PAUSED)
+            {
+                _currentGameState = GameState.GAME;
+            }
         }
     }
 
@@ -107,7 +144,7 @@ public class GameStateManager : MonoBehaviour
 
         if (playersCurrentlyAlive == 1)
         {
-            _currentGameState = GameState.GAMEWON;
+            _currentGameState = GameState.GAME_WON;
             Debug.Log($"Player {lastPlayerAliveIndex + 1} wins the game!");
 
             winCamera.Follow = PlayerManager.Instance._activatedPlayers[lastPlayerAliveIndex].transform;
@@ -141,7 +178,7 @@ public class GameStateManager : MonoBehaviour
 
     public int ReturnWinningPlayerIndex()
     {
-        if (_currentGameState == GameState.GAMEWON)
+        if (_currentGameState == GameState.GAME_WON)
         {
             return lastPlayerAliveIndex;
         }
