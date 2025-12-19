@@ -18,12 +18,7 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
-    public void PlaySoundInSpace(AudioClip clip, Vector3 position)
-    {
-        PlaySoundInSpace(clip, position, 1.0f);
-    }
-
-    public void PlaySoundInSpace(AudioClip clip, Vector3 position, float volume)
+    public void PlaySoundInSpace(AudioClip clip, Vector3 position, float volume = 1f)
     {
         if (clip != null)
         {

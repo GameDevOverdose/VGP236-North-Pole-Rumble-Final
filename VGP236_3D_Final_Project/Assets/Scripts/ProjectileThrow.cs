@@ -15,7 +15,9 @@ public class ProjectileThrow : MonoBehaviour
 
     private int playerNumber = 0;
 
+    [Header("Sound Settings")]
     [SerializeField] private AudioClip[] _throwSounds;
+    [SerializeField] private float _throwSoundVolume = 1.0f;
 
     private void Awake()
     {
@@ -58,7 +60,7 @@ public class ProjectileThrow : MonoBehaviour
                 projectileRigidbody.AddForce(_spawnTransform.forward * _throwForce, ForceMode.VelocityChange);
             }
 
-            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_throwSounds), transform.position);
+            SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_throwSounds), transform.position, _throwSoundVolume);
         }
     }
 
