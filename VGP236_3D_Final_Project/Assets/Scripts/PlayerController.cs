@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -38,9 +39,6 @@ public class PlayerController : MonoBehaviour
     private int playerNumber = 0;
     [SerializeField] private bool _isRolling = false;
 
-    private int _currentHealth = 0;
-    public static event Action OnPlayerDamaged;
-
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
     public bool IsSliding { get { return ReturnIsSliding(); } }
@@ -62,7 +60,7 @@ public class PlayerController : MonoBehaviour
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
 
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
     }
 
     private void OnEnable()
@@ -71,6 +69,8 @@ public class PlayerController : MonoBehaviour
         PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += RollingAction;
         PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += MeleeAction;
         PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += ThrowAction;
+
+        Initialize();
     }
 
     private void OnDisable()
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Testing purposes only
-        if (SceneManager.GetActiveScene().name == "Test")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Test")
         {
             _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
             _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;

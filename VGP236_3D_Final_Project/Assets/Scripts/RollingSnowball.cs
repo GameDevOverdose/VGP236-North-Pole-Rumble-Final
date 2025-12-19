@@ -32,7 +32,17 @@ public class RollingSnowball : MonoBehaviour
         _playerMaxSpeed = transform.parent.GetComponent<PlayerController>().MoveSpeed;
         _projectileThrowScript = transform.parent.GetComponent<ProjectileThrow>();
 
-        playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
         PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += GrowSnowball;
     }
 

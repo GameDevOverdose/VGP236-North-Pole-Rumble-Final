@@ -23,21 +23,24 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            //Application.Quit();
-            Debug.Log("Escape key pressed - Pause Menu");
-        }
-    }
-
     public void KillPlayer(int playerNumberIndex)
     {
-        GameObject playerToKill = PlayerNumberAssigner.Instance._playersInScene[playerNumberIndex];
+        GameObject playerToKill = PlayerManager.Instance._activatedPlayers[playerNumberIndex];
 
-        playerToKill.GetComponent<PlayerHealth>().IncrementHealth(-1);
-        playerToKill.GetComponent<PlayerController>().ResetPlayerState();
-        playerToKill.GetComponent<PlayerSpawn>().Spawn();
+        if (!(GameStateManager.Instance.CurrentGameState == GameStateManager.GameState.GAME_WON))
+        {
+            playerToKill.GetComponent<PlayerHealth>().IncrementHealth(-1);
+            UIManager.Instance.UpdateHealthUIElements();
+        }
+
+        if (PlayerManager.Instance._activatedPlayers[playerNumberIndex].GetComponent<PlayerHealth>().IsAlive)
+        {
+            playerToKill.GetComponent<PlayerController>().ResetPlayerState();
+            playerToKill.GetComponent<PlayerSpawn>().Spawn();
+        }
+        else
+        {
+            playerToKill.SetActive(false);
+        }
     }
 }

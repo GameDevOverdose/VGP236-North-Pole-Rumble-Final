@@ -6,7 +6,17 @@ public class PlayerSpawn : MonoBehaviour
 
     private void Awake()
     {
-        _playerNumber = PlayerNumberAssigner.Instance.GetPlayerNumberIndex(gameObject);
+        Initialize();
+    }
+
+    private void OnEnable()
+    {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
 
         Spawn();
     }
