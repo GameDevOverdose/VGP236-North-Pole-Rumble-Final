@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 
 public class ProjectileThrow : MonoBehaviour
 {
+    private PlayerController _controller = null;
+
     [SerializeField] private GameObject _projectilePrefab = null;
     [SerializeField] private Transform _spawnTransform = null;
     [SerializeField] private float _throwForce = 10.0f;
     [SerializeField] private float _throwRate = 1.0f;
     private float _throwTimer = 0.0f;
-
-    private PlayerController _playerController = null;
 
     private bool _canThrow = true;
 
@@ -31,7 +31,7 @@ public class ProjectileThrow : MonoBehaviour
 
     private void Initialize()
     {
-        _playerController = GetComponent<PlayerController>();
+        _controller = GetComponent<PlayerController>();
 
         playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.gameObject);
         PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += Throw;
@@ -49,7 +49,7 @@ public class ProjectileThrow : MonoBehaviour
 
     private void Throw(InputAction.CallbackContext context)
     {
-        if(!_playerController.IsSliding && _canThrow && _throwTimer >= _throwRate)
+        if(!_controller.IsSliding && !_controller.IsRolling && _canThrow && _throwTimer >= _throwRate)
         {
             _throwTimer = 0.0f;
 

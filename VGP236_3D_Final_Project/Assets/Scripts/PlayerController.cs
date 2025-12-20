@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -29,19 +30,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _maxSlideTime = 0.0f;
     private float _slideTimer = 0.0f;
     [SerializeField] private bool _isSliding = false;
+    [SerializeField] private bool _isRolling = false;
     [SerializeField] private bool _disableMoveBackwards = false;
 
-    [SerializeField] private TMP_Text _velocityDebugText = null;
-    [SerializeField] private TMP_Text _debugText2 = null;
-    [SerializeField] private TMP_Text _debugText3 = null;
-    [SerializeField] private TMP_Text _debugText4 = null;
-
     private int playerNumber = 0;
-    [SerializeField] private bool _isRolling = false;
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
-    public bool IsSliding { get { return ReturnIsSliding(); } }
+    public bool IsSliding { get { return _isSliding; } }
+    public bool IsRolling { get { return _isRolling; } }
 
     private void Awake()
     {
@@ -61,6 +58,8 @@ public class PlayerController : MonoBehaviour
         _baseRotationSpeed = _rotationSpeed;
 
         playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
+
+        _lastKnownDirection = 1;
     }
 
     private void OnEnable()
@@ -83,13 +82,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_slideTimer > 0.00f)
+        if (_slideTimer > 0.0f)
         {
             _slideTimer -= Time.deltaTime;
 
             if (_slideTimer < 0.0f)
             {
-                _slideTimer = 0.0f;
+                //_slideTimer = 0.0f;
 
                 EndSlide();
             }
@@ -160,15 +159,6 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat("Horizontal Speed", Math.Abs(currentVelocity.x));
         }
 
-        //Testing purposes only
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Test")
-        {
-            _debugText2.text = "Moving Forward: " + (IsMoving(moveInput) || _isSliding);
-            _debugText3.text = "CurrentHorizontalVelocity: " + currentHorizontalVelocity;
-            _debugText4.text = "TargetHorizontalVelocity: " + targetHorizontalVelocity;
-            _velocityDebugText.text = ($"Velocity.x: {_rigidBody.linearVelocity.x.ToString("F2")}\nTarget Speed: {targetSpeed}");
-        }
-
         float rotation = moveInput.x * _rotationSpeed;
         _rigidBody.angularVelocity = new Vector3(0.0f, rotation, 0.0f);
 
@@ -180,18 +170,13 @@ public class PlayerController : MonoBehaviour
         return Mathf.Abs(moveInput.y) > 0.1f;
     }
 
-    private bool ReturnIsSliding()
-    {
-        return _slideTimer > 0.0f;
-    }
-
     private void RollingAction(InputAction.CallbackContext context)
     {
         if (_isRolling)
         {
             EndRolling();
         }
-        else if (_groundCheck.IsGrounded)
+        else if (_groundCheck.IsGrounded && !_isSliding)
         {
             _isRolling = true;
         }
@@ -210,7 +195,7 @@ public class PlayerController : MonoBehaviour
 
     private void SlideAction(InputAction.CallbackContext context)
     {
-        if (_slideCoroutine != null || !_groundCheck.IsGrounded)
+        if (_slideCoroutine != null || !_groundCheck.IsGrounded || _isRolling)
         {
             return;
         }
@@ -220,7 +205,7 @@ public class PlayerController : MonoBehaviour
 
     private void MeleeAction(InputAction.CallbackContext context)
     {
-        if (_meleeCoroutine != null)
+        if (_meleeCoroutine != null || _isSliding || IsRolling)
         {
             return;
         }
@@ -230,7 +215,7 @@ public class PlayerController : MonoBehaviour
 
     private void ThrowAction(InputAction.CallbackContext context)
     {
-        if (_throwCoroutine != null)
+        if (_throwCoroutine != null || _isSliding || IsRolling)
         {
             return;
         }
@@ -280,6 +265,7 @@ public class PlayerController : MonoBehaviour
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
+        _slideTimer = 0.0f;
         _isSliding = false;
         _animator.SetBool("IsSliding", false);
         StopCoroutine(_slideCoroutine);
@@ -291,6 +277,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"reset player {gameObject.name}");
         _rigidBody.linearVelocity = Vector3.zero;
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        _lastKnownDirection = 1f;
 
         EndSlide();
         EndRolling();
