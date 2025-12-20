@@ -45,11 +45,16 @@ public class GiveKnockbackOnImpact : MonoBehaviour
         if (!other.gameObject.CompareTag("Projectile"))
         {
             SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position, _soundsVolume);
+            if (_controller != null)
+            {
+                _controller.EndRolling();
+            }
+            if (_rollingSnowball != null)
+            {
+                _rollingSnowball.DestroySnowball();
+            }
+
             Destroy(gameObject);
-
-            _rollingSnowball.DestroySnowball();
-            _controller.EndRolling();
-
         }
     }
 
