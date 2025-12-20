@@ -1150,14 +1150,6 @@ PrefabInstance:
       propertyPath: menuCamera
       value: 
       objectReference: {fileID: 1585035478}
-    - target: {fileID: 3351641601056804289, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
-      propertyPath: pauseMusicIncrement
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 3351641601056804289, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
-      propertyPath: _pauseMusicIncrement
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 4384327982578728243, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
       propertyPath: _playerParentRoot
       value: 
