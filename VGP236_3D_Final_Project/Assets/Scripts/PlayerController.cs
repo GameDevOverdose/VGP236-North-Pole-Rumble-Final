@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
         _baseRotationSpeed = _rotationSpeed;
 
         playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
+
+        _lastKnownDirection = 1;
     }
 
     private void OnEnable()
@@ -275,6 +277,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"reset player {gameObject.name}");
         _rigidBody.linearVelocity = Vector3.zero;
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        _lastKnownDirection = 1f;
 
         EndSlide();
         EndRolling();
