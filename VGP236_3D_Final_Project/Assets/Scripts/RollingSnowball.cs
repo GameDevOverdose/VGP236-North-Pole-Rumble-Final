@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class RollingSnowball : MonoBehaviour
 {
-    private PlayerController _playerController = null;
+    [SerializeField] private PlayerController _playerController = null;
     [SerializeField] private GroundCheck _groundCheck = null;
 
     [SerializeField] private GameObject _rollingSnowballPrefab = null;
@@ -33,7 +33,6 @@ public class RollingSnowball : MonoBehaviour
 
     private void Awake()
     {
-        _playerController = transform.parent.GetComponent<PlayerController>();
         _playerRigidbody = transform.parent.GetComponent<Rigidbody>();
         _playerMaxSpeed = _playerController.MoveSpeed;
         _projectileThrowScript = transform.parent.GetComponent<ProjectileThrow>();
@@ -105,7 +104,7 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.position = transform.position;
         _rollingSnowballInstance.transform.localScale = _startScale;
         _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
-        _throwbackScript.Initialize(_playerController);
+        _throwbackScript.Initialize(_playerController, this);
 
         _rollingSnowballAudioSource = SoundEffectManager.Instance.PlayLoopingSound(
             SoundEffectManager.Instance.GetRandomSound(_rollingSound),

@@ -14,9 +14,10 @@ public class GiveKnockbackOnImpact : MonoBehaviour
     [SerializeField] private AudioClip[] _impactSounds;
     [SerializeField] private float _soundsVolume = 1.0f;
 
-    public void Initialize(PlayerController controller)
+    public void Initialize(PlayerController controller, RollingSnowball rollingSnowball)
     {
         _controller = controller;
+        _rollingSnowball = rollingSnowball;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -40,6 +41,7 @@ public class GiveKnockbackOnImpact : MonoBehaviour
             Debug.Log(other.gameObject.name);
             throwbackScript.Knockback(transform.forward, _knockbackForce * _knockbackFactor, _knockbackIncrement * _knockbackFactor);
 
+            Debug.Log("_controller is not null: " + _rollingSnowball != null);
             if (_rollingSnowball != null)
             {
                 _rollingSnowball.DestroySnowball();
