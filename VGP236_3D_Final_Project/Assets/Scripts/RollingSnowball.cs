@@ -25,10 +25,10 @@ public class RollingSnowball : MonoBehaviour
     //Can use this in case implementing a cooldown/powerup
     private bool _canRollSnowball = true;
 
-    private int playerNumber = 0;
+    private int _playerNumber = 0;
 
-    [SerializeField] private AudioClip[] rollingSound;
-    [SerializeField] private float rollingSoundVolume = 1.0f;
+    [SerializeField] private AudioClip[] _rollingSound;
+    [SerializeField] private float _rollingSoundVolume = 1.0f;
     private AudioSource _rollingSnowballAudioSource = null;
 
     private void Awake()
@@ -48,8 +48,8 @@ public class RollingSnowball : MonoBehaviour
 
     private void Initialize()
     {
-        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
-        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += GrowSnowball;
+        _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
+        PlayerInputGetter.Instance.RollSnowballAction(_playerNumber).performed += GrowSnowball;
     }
 
     private void Update()
@@ -108,19 +108,19 @@ public class RollingSnowball : MonoBehaviour
         _throwbackScript.Initialize(_playerController);
 
         _rollingSnowballAudioSource = SoundEffectManager.Instance.PlayLoopingSound(
-            SoundEffectManager.Instance.GetRandomSound(rollingSound),
+            SoundEffectManager.Instance.GetRandomSound(_rollingSound),
             _rollingSnowballInstance.transform.position,
-            rollingSoundVolume);
+            _rollingSoundVolume);
     }
 
     public void DestroySnowball()
     {
+        SoundEffectManager.Instance.StopLoopingSound(_rollingSnowballAudioSource);
+
         if (_rollingSnowballInstance != null)
         {
             Destroy(_rollingSnowballInstance);
             _rollingSnowballInstance = null;
         }
-
-        SoundEffectManager.Instance.StopLoopingSound(_rollingSnowballAudioSource);
     }
 }

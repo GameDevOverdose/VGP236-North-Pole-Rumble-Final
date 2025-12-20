@@ -33,7 +33,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _isRolling = false;
     [SerializeField] private bool _disableMoveBackwards = false;
 
-    private int playerNumber = 0;
+    [SerializeField] private AudioClip[] _slidingSounds;
+    [SerializeField] private float _slideVolumn = 1.0f;
+    private AudioSource _audioSource = null;
+
+    private int _playerNumber = 0;
 
     //GETTERS
     public float MoveSpeed { get { return _moveSpeed; } }
@@ -57,27 +61,27 @@ public class PlayerController : MonoBehaviour
         _baseMoveSpeed = _moveSpeed;
         _baseRotationSpeed = _rotationSpeed;
 
-        playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
+        _playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(gameObject);
 
         _lastKnownDirection = 1;
     }
 
     private void OnEnable()
     {
-        PlayerInputGetter.Instance.SlideAction(playerNumber).performed += SlideAction;
-        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed += RollingAction;
-        PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += MeleeAction;
-        PlayerInputGetter.Instance.ThrowAction(playerNumber).performed += ThrowAction;
+        PlayerInputGetter.Instance.SlideAction(_playerNumber).performed += SlideAction;
+        PlayerInputGetter.Instance.RollSnowballAction(_playerNumber).performed += RollingAction;
+        PlayerInputGetter.Instance.MeleeAttack(_playerNumber).performed += MeleeAction;
+        PlayerInputGetter.Instance.ThrowAction(_playerNumber).performed += ThrowAction;
 
         Initialize();
     }
 
     private void OnDisable()
     {
-        PlayerInputGetter.Instance.SlideAction(playerNumber).performed -= SlideAction;
-        PlayerInputGetter.Instance.RollSnowballAction(playerNumber).performed -= RollingAction;
-        PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed -= MeleeAction;
-        PlayerInputGetter.Instance.ThrowAction(playerNumber).performed -= ThrowAction;
+        PlayerInputGetter.Instance.SlideAction(_playerNumber).performed -= SlideAction;
+        PlayerInputGetter.Instance.RollSnowballAction(_playerNumber).performed -= RollingAction;
+        PlayerInputGetter.Instance.MeleeAttack(_playerNumber).performed -= MeleeAction;
+        PlayerInputGetter.Instance.ThrowAction(_playerNumber).performed -= ThrowAction;
     }
 
     private void Update()
@@ -99,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction(playerNumber).ReadValue<Vector2>();
+        Vector2 moveInput = PlayerInputGetter.Instance.MoveAction(_playerNumber).ReadValue<Vector2>();
 
         Vector3 forward = _rigidBody.transform.forward;
         forward.y = 0.0f;
@@ -249,6 +253,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         _modelTransform.localRotation = Quaternion.Euler(90, _modelTransform.localRotation.y, _modelTransform.localRotation.y);
 
+        _audioSource = SoundEffectManager.Instance.PlayLoopingSound(SoundEffectManager.Instance.GetRandomSound(_slidingSounds), transform.position,_slideVolumn);
         _moveSpeed = _slideSpeed;
         _slideTimer = _maxSlideTime;
         _isSliding = true;
@@ -263,6 +268,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Ended Slide");
         _modelTransform.localRotation = Quaternion.Euler(0, 0, 0);
+        SoundEffectManager.Instance.StopLoopingSound(_audioSource);
         _moveSpeed = _baseMoveSpeed;
         _rotationSpeed = _baseRotationSpeed;
         _slideTimer = 0.0f;
