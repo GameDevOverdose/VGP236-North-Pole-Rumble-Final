@@ -39,19 +39,27 @@ public class GiveKnockbackOnImpact : MonoBehaviour
         {
             Debug.Log(other.gameObject.name);
             throwbackScript.Knockback(transform.forward, _knockbackForce * _knockbackFactor, _knockbackIncrement * _knockbackFactor);
-            _controller.EndRolling();
+
+            if (_rollingSnowball != null)
+            {
+                _rollingSnowball.DestroySnowball();
+            }
+            if (_controller != null)
+            {
+                _controller.EndRolling();
+            }
         }
 
         if (!other.gameObject.CompareTag("Projectile"))
         {
             SoundEffectManager.Instance.PlaySoundInSpace(SoundEffectManager.Instance.GetRandomSound(_impactSounds), transform.position, _soundsVolume);
-            if (_controller != null)
-            {
-                _controller.EndRolling();
-            }
             if (_rollingSnowball != null)
             {
                 _rollingSnowball.DestroySnowball();
+            }
+            if (_controller != null)
+            {
+                _controller.EndRolling();
             }
 
             Destroy(gameObject);

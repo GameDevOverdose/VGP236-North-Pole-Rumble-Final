@@ -6666,9 +6666,9 @@ MonoBehaviour:
   _endScale: {x: 5, y: 5, z: 5}
   _maxGrowSpeed: 1
   _rotateGrowSpeed: 1.25
-  rollingSound:
+  _rollingSound:
   - {fileID: 8300000, guid: 74cd987cb2cda974bb72234b82fe1f22, type: 3}
-  rollingSoundVolume: 1
+  _rollingSoundVolume: 1
 --- !u!1 &4494668449389791842
 GameObject:
   m_ObjectHideFlags: 0
@@ -7981,12 +7981,11 @@ MonoBehaviour:
   _rotationSpeed: 4
   _maxSlideTime: 1.7
   _isSliding: 0
-  _disableMoveBackwards: 0
-  _velocityDebugText: {fileID: 0}
-  _debugText2: {fileID: 0}
-  _debugText3: {fileID: 0}
-  _debugText4: {fileID: 0}
   _isRolling: 0
+  _disableMoveBackwards: 0
+  _slidingSounds:
+  - {fileID: 8300000, guid: 74cd987cb2cda974bb72234b82fe1f22, type: 3}
+  _slideVolumn: 1
 --- !u!114 &916120486820680106
 MonoBehaviour:
   m_ObjectHideFlags: 0
