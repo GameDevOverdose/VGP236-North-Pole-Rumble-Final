@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _disableMoveBackwards = false;
 
     [SerializeField] private AudioClip[] _slidingSounds;
-    [SerializeField] private float _slideVolumn = 1.0f;
+    [SerializeField] private float _slideVolume = 1.0f;
     private AudioSource _audioSource = null;
 
     private int _playerNumber = 0;
@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         _modelTransform.localRotation = Quaternion.Euler(90, _modelTransform.localRotation.y, _modelTransform.localRotation.y);
 
-        _audioSource = SoundEffectManager.Instance.PlayLoopingSound(SoundEffectManager.Instance.GetRandomSound(_slidingSounds), transform.position,_slideVolumn);
+        _audioSource = SoundEffectManager.Instance.PlayLoopingSound(SoundEffectManager.Instance.GetRandomSound(_slidingSounds), transform.position,_slideVolume);
         _moveSpeed = _slideSpeed;
         _slideTimer = _maxSlideTime;
         _isSliding = true;
