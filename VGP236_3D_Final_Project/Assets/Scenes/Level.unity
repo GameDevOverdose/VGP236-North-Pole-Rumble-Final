@@ -1201,10 +1201,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5170613042446419662, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 753619257}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
 --- !u!4 &369449325 stripped
 Transform:
@@ -1831,7 +1828,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 232.02}
+  m_AnchoredPosition: {x: 0, y: 282.02}
   m_SizeDelta: {x: 570.84, y: 564.039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520749052
@@ -2521,17 +2518,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738367145}
   m_CullTransparentMesh: 1
---- !u!1 &753619215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5170613042446419662, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
-  m_PrefabInstance: {fileID: 287518244}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &753619240 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1120788958912428563, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
   m_PrefabInstance: {fileID: 287518244}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619215}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f418451292ef3724f8d80807b516dc0c, type: 3}
@@ -2542,7 +2534,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3351641601056804289, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
   m_PrefabInstance: {fileID: 287518244}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619215}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 305ad85963fed594cb164aeee11ecabe, type: 3}
@@ -2553,7 +2545,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1894340400789677457, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
   m_PrefabInstance: {fileID: 287518244}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619215}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a625ae43c24baf4f84458eff22a91c0, type: 3}
@@ -2564,33 +2556,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4384327982578728243, guid: cc4cbd31acc39584698456e8e0ed9985, type: 3}
   m_PrefabInstance: {fileID: 287518244}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619215}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51bd7358f2596a045aa393f8b1757aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
---- !u!114 &753619257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b34cb8b98480b2d41a7d391d69677e4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _menuMusic:
-  - audioClip: {fileID: 8300000, guid: 07d594bcbe30e2c44be4ad1961f3abf1, type: 3}
-    volume: 1
-  _gameMusic:
-  - audioClip: {fileID: 8300000, guid: 8ae15e49b4140d640a5b2960dd7ddd0b, type: 3}
-    volume: 0.5
-  _winMusic:
-  - audioClip: {fileID: 8300000, guid: 27a8563eb220b56489431b1785153a23, type: 3}
-    volume: 1
 --- !u!1 &798869449
 GameObject:
   m_ObjectHideFlags: 0

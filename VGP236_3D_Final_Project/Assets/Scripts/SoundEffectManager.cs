@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+[DefaultExecutionOrder(-15)]
 public class SoundEffectManager : MonoBehaviour
 {
     private static SoundEffectManager _instance;

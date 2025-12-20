@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 1120788958912428563}
   - component: {fileID: 140484070403312638}
   - component: {fileID: 5744841875434218129}
+  - component: {fileID: 646612254872277072}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -278,6 +279,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0efba5ce8085643978cb27cf1a2451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundEffectManager
+--- !u!114 &646612254872277072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170613042446419662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34cb8b98480b2d41a7d391d69677e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _menuMusic:
+  - audioClip: {fileID: 8300000, guid: fd4542ce319c7964f977d668b00e7e6a, type: 3}
+    volume: 0.025
+  _gameMusic:
+  - audioClip: {fileID: 8300000, guid: 013bfeec9927ac74b8390d9b12d103fa, type: 3}
+    volume: 0.025
+  _winMusic:
+  - audioClip: {fileID: 8300000, guid: 0829d413299f20d499eed78eccc218eb, type: 3}
+    volume: 0.025
 --- !u!1 &6264034232884235778
 GameObject:
   m_ObjectHideFlags: 0
