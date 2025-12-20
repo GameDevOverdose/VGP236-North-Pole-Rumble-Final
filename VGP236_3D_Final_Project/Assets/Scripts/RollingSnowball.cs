@@ -27,6 +27,10 @@ public class RollingSnowball : MonoBehaviour
 
     private int playerNumber = 0;
 
+    [SerializeField] private AudioClip[] rollingSound;
+    [SerializeField] private float rollingSoundVolume = 1.0f;
+    private AudioSource _rollingSnowballAudioSource = null;
+
     private void Awake()
     {
         _playerController = transform.parent.GetComponent<PlayerController>();
@@ -102,6 +106,11 @@ public class RollingSnowball : MonoBehaviour
         _rollingSnowballInstance.transform.localScale = _startScale;
         _throwbackScript = _rollingSnowballInstance.GetComponent<GiveKnockbackOnImpact>();
         _throwbackScript.Initialize(_playerController);
+
+        _rollingSnowballAudioSource = SoundEffectManager.Instance.PlayLoopingSound(
+            SoundEffectManager.Instance.GetRandomSound(rollingSound),
+            _rollingSnowballInstance.transform.position,
+            rollingSoundVolume);
     }
 
     public void DestroySnowball()
@@ -111,5 +120,7 @@ public class RollingSnowball : MonoBehaviour
             Destroy(_rollingSnowballInstance);
             _rollingSnowballInstance = null;
         }
+
+        SoundEffectManager.Instance.StopLoopingSound(_rollingSnowballAudioSource);
     }
 }

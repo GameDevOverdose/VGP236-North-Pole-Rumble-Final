@@ -22,7 +22,7 @@ public class PlayerKnockback : MonoBehaviour
         Initialize();
     }
 
-    private void Initialize()
+    public void Initialize()
     {
         _currentKnockbackFactor = _minKnockbackFactor;
     }

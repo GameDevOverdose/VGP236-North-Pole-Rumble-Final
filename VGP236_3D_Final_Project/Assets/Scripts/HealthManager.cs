@@ -34,6 +34,7 @@ public class HealthManager : MonoBehaviour
         }
 
         playerToKill.GetComponent<PlayerController>().ResetPlayerState();
+        playerToKill.GetComponent<PlayerKnockback>().Initialize();
 
         if (PlayerManager.Instance._activatedPlayers[playerNumberIndex].GetComponent<PlayerHealth>().IsAlive)
         {
