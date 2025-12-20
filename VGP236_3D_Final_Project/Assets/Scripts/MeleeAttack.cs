@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MeleeAttack : MonoBehaviour
 {
+    private PlayerController _controller = null;
     private List<PlayerKnockback> _knockbackScripts = new List<PlayerKnockback>();
 
     [Header("Attack Settings")]
@@ -35,6 +36,7 @@ public class MeleeAttack : MonoBehaviour
     }
     private void Initialize()
     {
+        _controller = transform.parent.GetComponent<PlayerController>();
         playerNumber = PlayerManager.Instance.GetPlayerNumberIndex(transform.parent.gameObject);
         PlayerInputGetter.Instance.MeleeAttack(playerNumber).performed += Attack;
 
@@ -67,7 +69,9 @@ public class MeleeAttack : MonoBehaviour
 
     private void Attack(InputAction.CallbackContext context)
     {
-        if(_attackTimer >= _attackRate)
+        Debug.Log("Is not sliding: " + !_controller.IsSliding);
+        Debug.Log("Is not rolling: " + !_controller.IsRolling);
+        if(_attackTimer >= _attackRate && !_controller.IsSliding && !_controller.IsRolling)
         {
             _attackTimer = 0.0f;
 

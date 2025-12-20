@@ -89,7 +89,7 @@ public class RollingSnowball : MonoBehaviour
 
     private void GrowSnowball(InputAction.CallbackContext context)
     {
-        if (_rollingSnowballInstance == null && _canRollSnowball && _groundCheck.IsGrounded)
+        if (_rollingSnowballInstance == null && _canRollSnowball && _groundCheck.IsGrounded && !_playerController.IsSliding)
         {
             InstantiateSnowball();
         }
