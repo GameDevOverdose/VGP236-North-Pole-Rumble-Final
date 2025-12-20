@@ -243,6 +243,7 @@ MonoBehaviour:
   menuCamera: {fileID: 0}
   gameCamera: {fileID: 0}
   winCamera: {fileID: 0}
+  _pauseMusicIncrement: 0.01
 --- !u!114 &1120788958912428563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +300,7 @@ MonoBehaviour:
     volume: 0.025
   _winMusic:
   - audioClip: {fileID: 8300000, guid: 0829d413299f20d499eed78eccc218eb, type: 3}
-    volume: 0.025
+    volume: 0.015
 --- !u!1 &6264034232884235778
 GameObject:
   m_ObjectHideFlags: 0
