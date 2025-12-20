@@ -28,6 +28,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private CinemachineCamera gameCamera = null;
     [SerializeField] private CinemachineCamera winCamera = null;
 
+    private float _gameMusicVolume = 0.0f;
+    [SerializeField] private float _pauseMusicIncrement = 0.01f;
+
     private int playersCurrentlyAlive;
     private int lastPlayerAliveIndex;
 
@@ -82,13 +85,17 @@ public class GameStateManager : MonoBehaviour
 
                     CameraManager.Instance.ActivateCamera(gameCamera);
 
-                    MusicManager.Instance.PlayGameMusic();
-
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     
                     if(_lastState != GameState.GAME_PAUSED)
                     {
                         StartCoroutine(UIManager.Instance.EnableGameUI(0.0f));
+                        MusicManager.Instance.PlayGameMusic();
+                        _gameMusicVolume = MusicManager.Instance.GetCurrentMusicStoredVolume();
+                    }
+                    else
+                    {
+                        MusicManager.Instance.SetVolume(_gameMusicVolume);
                     }
 
                     StartCoroutine(UIManager.Instance.DisableWinUI(0.0f));
@@ -112,7 +119,7 @@ public class GameStateManager : MonoBehaviour
 
                 case GameState.GAME_PAUSED:
 
-                    MusicManager.Instance.SetVolume(0.5f);
+                    MusicManager.Instance.SetVolume(_gameMusicVolume - _pauseMusicIncrement);
 
                     StartCoroutine(UIManager.Instance.DisableMainMenu(0.0f));
                     //StartCoroutine(UIManager.Instance.DisableGameUI(0.0f));

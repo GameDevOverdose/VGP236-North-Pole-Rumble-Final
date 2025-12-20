@@ -6669,7 +6669,7 @@ MonoBehaviour:
   _rotateGrowSpeed: 1.25
   _rollingSound:
   - {fileID: 8300000, guid: 74cd987cb2cda974bb72234b82fe1f22, type: 3}
-  _rollingSoundVolume: 1
+  _rollingSoundVolume: 0.75
 --- !u!1 &4494668449389791842
 GameObject:
   m_ObjectHideFlags: 0
